@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from tile import Tile
 from fish import Fish
+from door import Door
 from player import Player
 
 class Level:
@@ -15,6 +16,7 @@ class Level:
 		self.active_sprites = pygame.sprite.Group()
 		self.collision_sprites = pygame.sprite.Group()
 		self.fish_sprites = pygame.sprite.Group()
+		self.door_sprites = pygame.sprite.Group()
 
 		self.setup_level()
 
@@ -26,11 +28,13 @@ class Level:
 				if col == 'X' or col == 'B':
 					Tile((x,y),[self.visible_sprites, self.collision_sprites])
 				if col == 'P':
-					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites],1)
+					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites],1)
 				if col == 'Q':
-					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites],2)
+					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites],2)
 				if col == 'F':
 					self.fish=Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
+				if col == 'D':
+					self.door = Door((x, y), [self.visible_sprites, self.collision_sprites,self.door_sprites])
 
 	def run(self):
 		# run the entire game (level)

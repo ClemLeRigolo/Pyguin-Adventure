@@ -19,6 +19,7 @@ class Player(pygame.sprite.Sprite):
 		self.active_sprite = collision_sprites[0]
 		self.fish_sprites = collision_sprites[2]
 		self.visible_sprites = collision_sprites[3]
+		self.door_sprites = collision_sprites[4]
 		self.on_floor = False
 		self.possibleD = True
 		self.possibleG = True
@@ -57,9 +58,17 @@ class Player(pygame.sprite.Sprite):
 		for sprite1 in self.fish_sprites.sprites():
 			if sprite1.rect.colliderect(self.rect):
 				print("fish")
+				sprite1.grab=True
 				self.visible_sprites.remove(sprite1)
 				self.collision_sprites.remove(sprite1)
 
+		for sprite1 in self.door_sprites.sprites():
+			if sprite1.rect.colliderect(self.rect):
+				print("door")
+				for sprite2 in self.fish_sprites.sprites():
+					if sprite2.grab==True:
+						print("Open")
+						self.collision_sprites.remove(sprite1)
 
 		for sprite1 in self.collision_sprites.sprites():
 			for sprite2 in self.active_sprite.sprites():
@@ -76,7 +85,6 @@ class Player(pygame.sprite.Sprite):
 							self.rect.left = sprite2.rect.right
 						if self.direction.x > 0:
 							self.rect.right = sprite2.rect.left
-
 
 	def vertical_collisions(self):
 		for sprite1 in self.collision_sprites.sprites():

@@ -8,6 +8,7 @@ class Fish(pygame.sprite.Sprite):
 		self.image = self.get_image(0, 0)
 		self.image.set_colorkey([0, 8, 255])
 		self.rect = self.image.get_rect(topleft=pos)
+		self.grab=False;
 
 
 	def get_image(self, x, y):

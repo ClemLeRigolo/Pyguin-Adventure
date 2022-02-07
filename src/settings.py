@@ -6,7 +6,7 @@ LEVEL_MAP = [
 'BXXXXXXXXXXXXXXXXXXXXXXXXXXXX   B',
 'B    X                          B',
 'B        XXXXX        XXXXXXXXX B',
-'B                   XXXXXXXXX   B',
+'B                   XXXXXX D    B',
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
 
 
