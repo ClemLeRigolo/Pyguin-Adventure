@@ -22,16 +22,17 @@ class Level:
 				x = col_index * TILE_SIZE
 				y = row_index * TILE_SIZE
 				if col == 'X' or col == 'B':
-					Tile((x,y),[self.visible_sprites,self.collision_sprites])
+					Tile((x,y),[self.visible_sprites, self.collision_sprites])
 				if col == 'P':
-					self.player = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,1)
+					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,1)
 				if col == 'Q':
-					self.player = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,2)
+					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,2)
 
 	def run(self):
 		# run the entire game (level)
 		self.active_sprites.update()
-		self.visible_sprites.custom_draw(self.player)
+		self.visible_sprites.custom_draw(self.player1,self.player2)
+		self.visible_sprites.custom_draw(self.player2, self.player1)
 
 class CameraGroup(pygame.sprite.Group):
 	def __init__(self):
@@ -51,22 +52,36 @@ class CameraGroup(pygame.sprite.Group):
 
 		self.camera_rect = pygame.Rect(cam_left,cam_top,cam_width,cam_height)
 
-	def custom_draw(self,player):
+	def custom_draw(self,player1,player2):
 
 		# get the player offset 
 		# self.offset.x = player.rect.centerx - self.half_w
 		# self.offset.y = player.rect.centery - self.half_h
 
 		# getting the camera position
-		if player.rect.left < self.camera_rect.left:
-			self.camera_rect.left = player.rect.left
-		if player.rect.right > self.camera_rect.right:
-			self.camera_rect.right = player.rect.right
-		if player.rect.top < self.camera_rect.top:
-			self.camera_rect.top = player.rect.top
-		if player.rect.bottom > self.camera_rect.bottom:
-			self.camera_rect.bottom = player.rect.bottom
 
+		if player1.rect.left < self.camera_rect.left:
+			if player2.rect.right >= self.camera_rect.right:
+				player1.possibleG = False
+				player2.possibleD = False
+			else:
+				player1.possibleG = True
+				player2.possibleD = True
+		if player1.rect.right > self.camera_rect.right:
+			if player2.rect.left <= self.camera_rect.left:
+				player1.possibleD = False
+				player2.possibleG = False
+			else:
+				player1.possibleD = True
+				player2.possibleG = True
+		if player1.rect.top < self.camera_rect.top:
+			self.camera_rect.top = player1.rect.top
+		if player1.rect.bottom > self.camera_rect.bottom:
+			self.camera_rect.bottom = player1.rect.bottom
+
+		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 640 + CAMERA_BORDERS['left']
+
+		print(self.camera_rect.left.real)
 		# camera offset 
 		self.offset = pygame.math.Vector2(
 			self.camera_rect.left - CAMERA_BORDERS['left'],

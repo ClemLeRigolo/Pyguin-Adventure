@@ -16,6 +16,8 @@ class Player(pygame.sprite.Sprite):
 		self.jump_speed = 16
 		self.collision_sprites = collision_sprites
 		self.on_floor = False
+		self.possibleD = True
+		self.possibleG = True
 
 	def input(self):
 		keys = pygame.key.get_pressed()
@@ -75,7 +77,14 @@ class Player(pygame.sprite.Sprite):
 
 	def update(self):
 		self.input()
-		self.rect.x += self.direction.x * self.speed
+		if self.direction.x < 0:
+			if self.possibleG:
+				self.rect.x += self.direction.x * self.speed
+				self.possibleD = True
+		if self.direction.x > 0:
+			if self.possibleD:
+				self.rect.x += self.direction.x * self.speed
+				self.possibleG = True
 		self.horizontal_collisions()
 		self.apply_gravity()
 		self.vertical_collisions()
