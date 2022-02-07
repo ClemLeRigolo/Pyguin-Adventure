@@ -3,6 +3,10 @@ LEVEL_MAP = [
 'B       P                       B',
 'B    XXXXXXXXX      XXXXXXXXX   B',
 'B      Q                        B',
+'BXXXXXXXXXXXXXXXXXXXXXXXXXXXX   B',
+'B    X                          B',
+'B        XXXXX        XXXXXXXXX B',
+'B                   XXXXXXXXX   B',
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
 
 

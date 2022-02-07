@@ -45,6 +45,11 @@ class Player(pygame.sprite.Sprite):
 			if keys[pygame.K_z] and self.on_floor:
 				self.direction.y = -self.jump_speed
 
+		if self.direction.x==1:
+			self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
+		elif self.direction.x==-1:
+			self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
+
 	def get_image(self, x, y):
 		image = pygame.Surface([32, 32])
 		image.blit(self.sprite_sheet, (0, 0), (x, y, 32, 32))
