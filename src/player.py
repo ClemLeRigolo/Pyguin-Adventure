@@ -6,6 +6,7 @@ class Player(pygame.sprite.Sprite):
 		super().__init__(groups)
 		self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
 		self.image = self.get_image(0, 0)
+		self.image.set_colorkey([0, 8, 255])
 		self.rect = self.image.get_rect(topleft = pos)
 
 		# player movement
@@ -16,6 +17,8 @@ class Player(pygame.sprite.Sprite):
 		self.jump_speed = 16
 		self.collision_sprites = collision_sprites[1]
 		self.active_sprite = collision_sprites[0]
+		self.fish_sprites = collision_sprites[2]
+		self.visible_sprites = collision_sprites[3]
 		self.on_floor = False
 		self.possibleD = True
 		self.possibleG = True
@@ -45,17 +48,19 @@ class Player(pygame.sprite.Sprite):
 			if keys[pygame.K_z] and self.on_floor:
 				self.direction.y = -self.jump_speed
 
-		if self.direction.x==1:
-			self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
-		elif self.direction.x==-1:
-			self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
-
 	def get_image(self, x, y):
 		image = pygame.Surface([32, 32])
 		image.blit(self.sprite_sheet, (0, 0), (x, y, 32, 32))
 		return image
 
 	def horizontal_collisions(self):
+		for sprite1 in self.fish_sprites.sprites():
+			if sprite1.rect.colliderect(self.rect):
+				print("fish")
+				self.visible_sprites.remove(sprite1)
+				self.collision_sprites.remove(sprite1)
+
+
 		for sprite1 in self.collision_sprites.sprites():
 			for sprite2 in self.active_sprite.sprites():
 				a = False
@@ -114,3 +119,16 @@ class Player(pygame.sprite.Sprite):
 		self.horizontal_collisions()
 		self.apply_gravity()
 		self.vertical_collisions()
+
+
+
+
+		L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1R.png')
+		R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
+		if self.direction.x == -1:
+			self.sprite_sheet = L_PING_IMG
+		elif self.direction.x == 1:
+			self.sprite_sheet = R_PING_IMG
+		self.image = self.get_image(0, 0)
+		self.image.set_colorkey([0, 8, 255])
+		self.rect = self.image.get_rect(topleft=self.rect.topleft)
