@@ -15,7 +15,8 @@ class Game:
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data,self.screen.get_size())
 
-        self.player = Pinguin()
+        player_position = tmx_data.get_object_by_name("Pinguin")
+        self.player = Pinguin(player_position.x,player_position.y)
 
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=1)
         self.group.add(self.player)
@@ -27,6 +28,8 @@ class Game:
 
         while running:
 
+            self.group.update()
+            self.group.center(self.player.rect.center)
             self.group.draw(self.screen)
             pygame.display.flip()
 
