@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from settings import *
 
 
@@ -14,12 +14,15 @@ class Player(pygame.sprite.Sprite):
         self.nb = nb
         self.direction = pygame.math.Vector2()
         self.speed = 8
+        self.speedG = 20
+        self.time = 0
         self.gravity = 0.8
         self.jump_speed = 16
         self.collision_sprites = collision_sprites[1]
         self.active_sprite = collision_sprites[0]
         self.fish_sprites = collision_sprites[2]
         self.visible_sprites = collision_sprites[3]
+        self.glissade = False
         self.on_floor = False
         self.possibleD = True
         self.possibleG = True
@@ -38,16 +41,30 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_UP] and self.on_floor:
                 self.direction.y = -self.jump_speed
 
+            if keys[pygame.K_DOWN]:
+                self.glissade = True
+            else:
+                self.glissade = False
+                if self.time != 0:
+                    self.time = 0
+
         if self.nb == 2:
-            if keys[pygame.K_d]:
+            if keys[pygame.K_d] and not keys[pygame.K_q]:
                 self.direction.x = 1
-            elif keys[pygame.K_q]:
+            elif keys[pygame.K_q] and not keys[pygame.K_d]:
                 self.direction.x = -1
             else:
                 self.direction.x = 0
 
             if keys[pygame.K_z] and self.on_floor:
                 self.direction.y = -self.jump_speed
+
+            if keys[pygame.K_s]:
+                self.glissade = True
+            else:
+                self.glissade = False
+                if self.time != 0:
+                    self.time = 0
 
     def get_image(self, x, y):
         image = pygame.Surface([32, 32])
@@ -110,22 +127,43 @@ class Player(pygame.sprite.Sprite):
         self.input()
         if self.direction.x < 0:
             if self.possibleG:
-                self.rect.x += self.direction.x * self.speed
-                self.possibleD = True
+                if self.glissade:
+                    if self.speedG > 0:
+                        self.rect.x += self.direction.x * (self.speedG / 1.05**self.time)
+                        self.time += 1
+                        self.possibleD = True
+                else:
+                    self.rect.x += self.direction.x * self.speed
+                    self.possibleD = True
         if self.direction.x > 0:
             if self.possibleD:
-                self.rect.x += self.direction.x * self.speed
-                self.possibleG = True
+                if self.glissade:
+                    if self.speedG > 0:
+                        self.rect.x += self.direction.x * (self.speedG / 1.05**self.time)
+                        self.time += 1
+                        self.possibleG = True
+                else:
+                    self.rect.x += self.direction.x * self.speed
+                    self.possibleG = True
         self.horizontal_collisions()
         self.apply_gravity()
         self.vertical_collisions()
 
         L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1R.png')
         R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
-        if self.direction.x == -1:
-            self.sprite_sheet = L_PING_IMG
-        elif self.direction.x == 1:
-            self.sprite_sheet = R_PING_IMG
+        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisseG.png')
+        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisse.png')
+        if self.glissade and self.direction != 0:
+            if self.direction.x == -1:
+                self.sprite_sheet = D_L_PING_IMG
+            elif self.direction.x == 1:
+                self.sprite_sheet = D_R_PING_IMG
+        else:
+            if self.direction.x == -1:
+                self.sprite_sheet = L_PING_IMG
+            elif self.direction.x == 1:
+                self.sprite_sheet = R_PING_IMG
+
         self.image = self.get_image(0, 0)
         self.image.set_colorkey([0, 8, 255])
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
