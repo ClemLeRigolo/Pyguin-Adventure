@@ -24,9 +24,9 @@ class Level:
 				if col == 'X' or col == 'B':
 					Tile((x,y),[self.visible_sprites, self.collision_sprites])
 				if col == 'P':
-					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,1)
+					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites],1)
 				if col == 'Q':
-					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,2)
+					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites],2)
 
 	def run(self):
 		# run the entire game (level)
@@ -81,7 +81,6 @@ class CameraGroup(pygame.sprite.Group):
 
 		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 640 + CAMERA_BORDERS['left']
 
-		print(self.camera_rect.left.real)
 		# camera offset 
 		self.offset = pygame.math.Vector2(
 			self.camera_rect.left - CAMERA_BORDERS['left'],
