@@ -2,13 +2,14 @@ import pygame
 from settings import *
 
 class Player(pygame.sprite.Sprite):
-	def __init__(self,pos,groups,collision_sprites):
+	def __init__(self,pos,groups,collision_sprites,nb):
 		super().__init__(groups)
 		self.image = pygame.Surface((TILE_SIZE // 2,TILE_SIZE))
 		self.image.fill(PLAYER_COLOR)
 		self.rect = self.image.get_rect(topleft = pos)
 
-		# player movement 
+		# player movement
+		self.nb=nb
 		self.direction = pygame.math.Vector2()
 		self.speed = 8
 		self.gravity = 0.8
@@ -19,15 +20,27 @@ class Player(pygame.sprite.Sprite):
 	def input(self):
 		keys = pygame.key.get_pressed()
 
-		if keys[pygame.K_RIGHT]:
-			self.direction.x = 1
-		elif keys[pygame.K_LEFT]:
-			self.direction.x = -1
-		else:
-			self.direction.x = 0
+		if self.nb==1:
+			if keys[pygame.K_RIGHT]:
+				self.direction.x = 1
+			elif keys[pygame.K_LEFT]:
+				self.direction.x = -1
+			else:
+				self.direction.x = 0
 
-		if keys[pygame.K_SPACE] and self.on_floor:
-			self.direction.y = -self.jump_speed
+			if keys[pygame.K_UP] and self.on_floor:
+				self.direction.y = -self.jump_speed
+
+		if self.nb == 2:
+			if keys[pygame.K_d]:
+				self.direction.x = 1
+			elif keys[pygame.K_q]:
+				self.direction.x = -1
+			else:
+				self.direction.x = 0
+
+			if keys[pygame.K_z] and self.on_floor:
+				self.direction.y = -self.jump_speed
 
 	def horizontal_collisions(self):
 		for sprite in self.collision_sprites.sprites():

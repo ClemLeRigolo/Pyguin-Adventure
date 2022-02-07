@@ -1,15 +1,10 @@
 LEVEL_MAP = [
-'                            XX    ',
-'                            XX    ',
-'                            XX    ',
-'       XXXX           XX    XX    ',
-'   P                              ',
-'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-' XXXX       XX              XX    ',
-' XX    X  XXXX    XX  XX    XX    ',
-'       X  XXXX    XX  XXX   XX    ',
-'    XXXX  XXXXXX  XX  XXXX  XX    ',
-'XXXXXXXX  XXXXXX  XX  XXXX  XX    ']
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+'B       P                       B',
+'B    XXXXXXXXX      XXXXXXXXX   B',
+'B      Q                        B',
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+
 
 TILE_SIZE = 64
 SCREEN_WIDTH = 1280

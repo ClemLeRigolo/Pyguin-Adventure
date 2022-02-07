@@ -21,10 +21,12 @@ class Level:
 			for col_index,col in enumerate(row):
 				x = col_index * TILE_SIZE
 				y = row_index * TILE_SIZE
-				if col == 'X':
+				if col == 'X' or col == 'B':
 					Tile((x,y),[self.visible_sprites,self.collision_sprites])
 				if col == 'P':
-					self.player = Player((x,y),[self.visible_sprites,self.active_sprites],self.collision_sprites)
+					self.player = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,1)
+				if col == 'Q':
+					self.player = Player((x, y), [self.visible_sprites, self.active_sprites], self.collision_sprites,2)
 
 	def run(self):
 		# run the entire game (level)
