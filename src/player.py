@@ -6,6 +6,7 @@ class Player(pygame.sprite.Sprite):
 		super().__init__(groups)
 		self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
 		self.image = self.get_image(0, 0)
+		self.image.set_colorkey([0, 8, 255])
 		self.rect = self.image.get_rect(topleft = pos)
 
 		# player movement
