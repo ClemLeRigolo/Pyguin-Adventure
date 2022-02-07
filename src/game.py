@@ -9,11 +9,12 @@ class Game:
     def __init__(self):
 
         self.screen = pygame.display.set_mode((1280,720))
-        pygame.display.set_caption("Pyco Park")
+        pygame.display.set_caption("Pyguin Park")
 
         tmx_data = pytmx.util_pygame.load_pygame("../carte.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data,self.screen.get_size())
+        map_layer.zoom = 2
 
         player_position = tmx_data.get_object_by_name("Pinguin")
         self.player = Pinguin(player_position.x,player_position.y)
