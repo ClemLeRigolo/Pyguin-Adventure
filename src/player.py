@@ -14,7 +14,8 @@ class Player(pygame.sprite.Sprite):
 		self.speed = 8
 		self.gravity = 0.8
 		self.jump_speed = 16
-		self.collision_sprites = collision_sprites
+		self.collision_sprites = collision_sprites[1]
+		self.active_sprite = collision_sprites[0]
 		self.on_floor = False
 		self.possibleD = True
 		self.possibleG = True
@@ -50,23 +51,43 @@ class Player(pygame.sprite.Sprite):
 		return image
 
 	def horizontal_collisions(self):
-		for sprite in self.collision_sprites.sprites():
-			if sprite.rect.colliderect(self.rect):
-				if self.direction.x < 0:
-					self.rect.left = sprite.rect.right
-				if self.direction.x > 0:
-					self.rect.right = sprite.rect.left
+		for sprite1 in self.collision_sprites.sprites():
+			for sprite2 in self.active_sprite.sprites():
+				a = False
+				if sprite1.rect.colliderect(self.rect):
+					if self.direction.x < 0:
+						self.rect.left = sprite1.rect.right
+					if self.direction.x > 0:
+						self.rect.right = sprite1.rect.left
+					a = True
+				if sprite2.rect.colliderect(self.rect) and not a:
+					if sprite2.rect != self.rect:
+						if self.direction.x < 0:
+							self.rect.left = sprite2.rect.right
+						if self.direction.x > 0:
+							self.rect.right = sprite2.rect.left
+
 
 	def vertical_collisions(self):
-		for sprite in self.collision_sprites.sprites():
-			if sprite.rect.colliderect(self.rect):
-				if self.direction.y > 0:
-					self.rect.bottom = sprite.rect.top
-					self.direction.y = 0
-					self.on_floor = True
-				if self.direction.y < 0:
-					self.rect.top = sprite.rect.bottom
-					self.direction.y = 0
+		for sprite1 in self.collision_sprites.sprites():
+			for sprite2 in self.active_sprite.sprites():
+				if sprite1.rect.colliderect(self.rect):
+					if self.direction.y > 0:
+						self.rect.bottom = sprite1.rect.top
+						self.direction.y = 0
+						self.on_floor = True
+					if self.direction.y < 0:
+						self.rect.top = sprite1.rect.bottom
+						self.direction.y = 0
+				if sprite2.rect.colliderect(self.rect):
+					if sprite2.rect != self.rect:
+						if self.direction.y > 0:
+							self.rect.bottom = sprite2.rect.top
+							self.direction.y = 0
+							self.on_floor = True
+						if self.direction.y < 0:
+							self.rect.top = sprite2.rect.bottom
+							self.direction.y = 0
 
 		if self.on_floor and self.direction.y != 0:
 			self.on_floor = False
