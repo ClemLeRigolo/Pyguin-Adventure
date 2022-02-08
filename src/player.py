@@ -226,6 +226,7 @@ class Player(pygame.sprite.Sprite):
         self.horizontal_collisions()
         self.apply_gravity()
         self.vertical_collisions()
+        self.update_pos()
         self.image = self.get_image(0, 0)
         self.image.set_colorkey([0, 8, 255])
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
@@ -236,14 +237,6 @@ class Player(pygame.sprite.Sprite):
         return image
 
     def nuit(self, val):
-        L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGrisG.png')
-        R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris.png')
-        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris_glisseG.png')
-        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris_glisse.png')
-        DEM_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
-        DEM_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
-        DEM_D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
-        DEM_D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
         if val:
             self.demon = True
         else:
