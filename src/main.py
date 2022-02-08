@@ -1,5 +1,6 @@
 import pygame, sys
-from settings import * 
+sys.path.append('../')
+from settings import *
 from level import Level
 
 # Pygame setup
