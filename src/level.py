@@ -126,7 +126,7 @@ class CameraGroup(pygame.sprite.Group):
 				player1.possibleD = True
 				player2.possibleG = True
 
-		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 640 + CAMERA_BORDERS['left']
+		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 512 + CAMERA_BORDERS['left']
 
 		# camera offset 
 		self.offset = pygame.math.Vector2(
