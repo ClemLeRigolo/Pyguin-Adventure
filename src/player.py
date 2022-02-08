@@ -109,15 +109,7 @@ class Player(pygame.sprite.Sprite):
                         self.time = 0
 
     def horizontal_collisions(self):
-        for sprite1 in self.limit_sprites.sprites():
-            if sprite1.rect.colliderect(self.rect):
-                print("limit")
-                if self.rect.left > self.last_pos_on_flor[0]:
-                    self.rect.left = self.last_pos_on_flor[0]-64
-                    self.rect.top = self.last_pos_on_flor[1]
-                else:
-                    self.rect.left = self.last_pos_on_flor[0] +64
-                    self.rect.top = self.last_pos_on_flor[1]
+
 
         for sprite1 in self.fish_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
@@ -146,6 +138,7 @@ class Player(pygame.sprite.Sprite):
                         self.rect.left = sprite1.rect.right
                     if self.direction.x > 0:
                         self.rect.right = sprite1.rect.left
+                        print("mur")
                     a = True
                 if sprite2.rect.colliderect(self.rect) and not a:
                     if sprite2.rect != self.rect:
@@ -155,6 +148,12 @@ class Player(pygame.sprite.Sprite):
                             self.rect.right = sprite2.rect.left
 
     def vertical_collisions(self):
+        for sprite1 in self.limit_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("limit")
+                self.rect.left = self.last_pos_on_flor[0] - 128
+                self.rect.top = self.last_pos_on_flor[1]
+
         for sprite1 in self.fish_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
                 print("fish")
@@ -247,10 +246,10 @@ class Player(pygame.sprite.Sprite):
         R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris.png')
         D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris_glisseG.png')
         D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris_glisse.png')
-        DEM_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
-        DEM_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
-        DEM_D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
-        DEM_D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGrisG.png')
+        DEM_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\DiableGris.png')
+        DEM_D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris_glisseG.png')
+        DEM_D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris_glisse.png')
         if self.demon:
             if self.glissade and self.direction != 0:
                 if self.direction.x == -1:
