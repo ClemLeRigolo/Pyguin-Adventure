@@ -276,6 +276,11 @@ class Player(pygame.sprite.Sprite):
                         self.sprite_sheet = self.DEM_S_L_PING_IMG
                     elif self.direction.x == 1:
                         self.sprite_sheet = self.DEM_S_R_PING_IMG
+                    else:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG:
+                            self.sprite_sheet = self.DEM_S_L_PING_IMG
+                        else:
+                            self.sprite_sheet = self.DEM_S_R_PING_IMG
                 else:
                     if self.direction.x == -1:
                         if 0 <= self.time_in_pos < 10:
@@ -308,7 +313,7 @@ class Player(pygame.sprite.Sprite):
                         if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG:
                             self.sprite_sheet = self.S_L_PING_IMG
                         else:
-                            self.sprite_sheet = self.R_PING_IMG
+                            self.sprite_sheet = self.S_R_PING_IMG
                 else:
                     if self.direction.x == -1:
                         if 0 <= self.time_in_pos < 10:

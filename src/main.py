@@ -5,7 +5,7 @@ from level import Level
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pygame.display.set_caption('Penguins Adventure')
+pygame.display.set_caption('Pyguins Adventure')
 clock = pygame.time.Clock()
 
 lvl=2
@@ -13,6 +13,7 @@ selec=True
 
 level = Level(lvl-1)
 
+programIcon = pygame.image.load('./images/icon/icon.png')
 bg = pygame.image.load("./images/map/background1.png")
 
 while True:
@@ -26,6 +27,7 @@ while True:
 	#if selec==True:
 
 	screen.blit(bg, (0, 0))
+	pygame.display.set_icon(programIcon)
 	level.run()
 
 
