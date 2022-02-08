@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption('Penguins Adventure')
 clock = pygame.time.Clock()
 
-lvl=3
+lvl=1
 selec=True
 
 level = Level(lvl-1)

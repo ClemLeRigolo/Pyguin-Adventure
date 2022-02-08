@@ -11,6 +11,7 @@ from door import Door
 from igloo import Igloo
 from player import Player
 from limit import Limit
+from timer import Timer
 
 class Level:
 	def __init__(self,lvl):
@@ -26,6 +27,11 @@ class Level:
 		self.door_sprites = pygame.sprite.Group()
 		self.igloo_sprites = pygame.sprite.Group()
 		self.limit_sprites = pygame.sprite.Group()
+		self.time = Timer()
+		self.time.start()
+		self.time_start = self.time.real()
+		self.time_last = 0
+		self.night = False
 
 		self.setup_level(lvl)
 
@@ -62,6 +68,20 @@ class Level:
 
 	def run(self):
 		# run the entire game (level)
+		if self.night:
+			print("nuit")
+			if self.time.real()-self.time_start-self.time_last >= 10:
+				self.night = False
+				self.time_last = self.time.real()-self.time_start
+		else:
+			print("jour")
+			if self.time.real()-self.time_start-self.time_last >= 20:
+				self.night = True
+				self.time_last = self.time.real()-self.time_start
+		self.player1.nuit(self.night)
+		self.player2.nuit(self.night)
+		self.player1.update_pos()
+		self.player2.update_pos()
 		self.active_sprites.update()
 		self.visible_sprites.custom_draw(self.player1,self.player2)
 		self.visible_sprites.custom_draw(self.player2, self.player1)
@@ -82,7 +102,7 @@ class CameraGroup(pygame.sprite.Group):
 		cam_width = self.display_surface.get_size()[0] - (cam_left + CAMERA_BORDERS['right'])
 		cam_height = self.display_surface.get_size()[1] - (cam_top + CAMERA_BORDERS['bottom'])
 
-		self.camera_rect = pygame.Rect(cam_left,cam_top,cam_width,cam_height)
+		self.camera_rect = pygame.Rect(cam_left,cam_top-64,cam_width,cam_height)
 
 	def custom_draw(self,player1,player2):
 
@@ -106,10 +126,6 @@ class CameraGroup(pygame.sprite.Group):
 			else:
 				player1.possibleD = True
 				player2.possibleG = True
-		if player1.rect.top < self.camera_rect.top:
-			self.camera_rect.top = player1.rect.top
-		if player1.rect.bottom > self.camera_rect.bottom:
-			self.camera_rect.bottom = player1.rect.bottom
 
 		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 640 + CAMERA_BORDERS['left']
 
