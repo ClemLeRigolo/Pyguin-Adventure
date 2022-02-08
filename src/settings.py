@@ -1,13 +1,26 @@
-LEVEL_MAP = [[
+LEVEL_MAP = [
+[[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-'B                               B',
-'B          5                    B',
+'B                             BQB',
+'B          5                   BB',
 'BF                              B',
 'B2                              B',
 'B                               B',
 'B  231                        25B',
 'B           1                 DIB',
-'B    PQ     B1              2545B',
+'B    P      B1              2545B',
+'B434444551  BB35443544354453BBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']],
+[[
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+'B                               B',
+'B          5                    B',
+'BF                              B',
+'B2                              B',
+'B                           2345B',
+'B  231                      D I B',
+'B           1                   B',
+'B    PQ     B1      M       2545B',
 'B434444551  BB35443544354453BBBBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
@@ -37,6 +50,7 @@ LEVEL_MAP = [[
 'B4344445541 BB35443544354453BBBBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
+]
 ]
 
 
