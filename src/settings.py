@@ -2,13 +2,13 @@ LEVEL_MAP = [
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
 'B                               B',
 'B                               B',
-'B                               B',
-'B                               B',
 'BF                              B',
-'B                             XXB',
-'B           X                 DIB',
-'B    PQ     XX              XXXXB',
-'BBBBBBBBBBB BBBBBBBBBBBBBBBBBBBBB',
+'B                               B',
+'B                               B',
+'B  231                        25B',
+'B           1                 DIB',
+'B    PQ     B1              2545B',
+'B4344445541 BB35443544354453BBBBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
 
 

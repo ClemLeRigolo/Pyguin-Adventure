@@ -1,7 +1,7 @@
 import pygame 
 from settings import *
 
-class Tile(pygame.sprite.Sprite):
+class Ice(pygame.sprite.Sprite):
 	def __init__(self,pos,groups):
 		super().__init__(groups)
 		self.sprite_sheet = pygame.image.load('images\map/ice.png')
