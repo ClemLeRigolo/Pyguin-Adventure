@@ -32,6 +32,9 @@ class Level:
 		self.time_start = self.time.real()
 		self.time_last = 0
 		self.night = False
+		pygame.mixer.init()
+		pygame.mixer.music.load("./sound/Pyguin_adventure_ost.mp3")
+		pygame.mixer.music.play(-1)
 
 		self.setup_level()
 
@@ -80,8 +83,6 @@ class Level:
 				self.time_last = self.time.real()-self.time_start
 		self.player1.nuit(self.night)
 		self.player2.nuit(self.night)
-		self.player1.update_pos()
-		self.player2.update_pos()
 		self.active_sprites.update()
 		self.visible_sprites.custom_draw(self.player1,self.player2)
 		self.visible_sprites.custom_draw(self.player2, self.player1)
