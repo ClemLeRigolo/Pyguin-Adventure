@@ -14,7 +14,7 @@ from limit import Limit
 from timer import Timer
 
 class Level:
-	def __init__(self):
+	def __init__(self,lvl):
 
 		# level setup
 		self.display_surface = pygame.display.get_surface()
@@ -36,10 +36,10 @@ class Level:
 		pygame.mixer.music.load("./sound/Pyguin_adventure_ost.mp3")
 		pygame.mixer.music.play(-1)
 
-		self.setup_level()
+		self.setup_level(lvl)
 
-	def setup_level(self):
-		for row_index,row in enumerate(LEVEL_MAP):
+	def setup_level(self,lvl):
+		for row_index,row in enumerate(LEVEL_MAP[lvl]):
 			for col_index,col in enumerate(row):
 				x = col_index * TILE_SIZE
 				y = row_index * TILE_SIZE

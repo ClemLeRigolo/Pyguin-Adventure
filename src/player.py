@@ -5,7 +5,7 @@ from settings import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, collision_sprites, nb):
         super().__init__(groups)
-        self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
+        self.sprite_sheet = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris.png')
         self.image = self.get_image(0, 0)
         self.image.set_colorkey([0, 8, 255])
         self.rect = self.image.get_rect(topleft=pos)
@@ -113,10 +113,10 @@ class Player(pygame.sprite.Sprite):
             if sprite1.rect.colliderect(self.rect):
                 print("limit")
                 if self.rect.left > self.last_pos_on_flor[0]:
-                    self.rect.left = self.last_pos_on_flor[0]-30
+                    self.rect.left = self.last_pos_on_flor[0]-64
                     self.rect.top = self.last_pos_on_flor[1]
                 else:
-                    self.rect.left = self.last_pos_on_flor[0] +30
+                    self.rect.left = self.last_pos_on_flor[0] +64
                     self.rect.top = self.last_pos_on_flor[1]
 
         for sprite1 in self.fish_sprites.sprites():
@@ -232,8 +232,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
 
     def get_image(self, x, y):
-        image = pygame.Surface([32, 32])
-        image.blit(self.sprite_sheet, (0, 0), (x, y, 32, 32))
+        image = pygame.Surface([64, 64])
+        image.blit(self.sprite_sheet, (0, 0), (x, y, 64, 64))
         return image
 
     def nuit(self, val):
@@ -243,10 +243,10 @@ class Player(pygame.sprite.Sprite):
             self.demon = False
 
     def update_pos(self):
-        L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1R.png')
-        R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
-        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisseG.png')
-        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisse.png')
+        L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGrisG.png')
+        R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris.png')
+        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris_glisseG.png')
+        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\PingouinGris_glisse.png')
         DEM_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
         DEM_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
         DEM_D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
