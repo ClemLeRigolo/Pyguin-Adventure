@@ -8,7 +8,8 @@ LEVEL_MAP = [
 'B                             XXB',
 'B           X                 DIB',
 'B    PQ     XX              XXXXB',
-'BBBBBBBBBBB BBBBBBBBBBBBBBBBBBBBB']
+'BBBBBBBBBBB BBBBBBBBBBBBBBBBBBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
 
 
 TILE_SIZE = 64
