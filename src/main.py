@@ -5,7 +5,7 @@ from level import Level
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pygame.display.set_caption('Penguins Adventure')
+pygame.display.set_caption('Pyguins Adventure')
 clock = pygame.time.Clock()
 
 lvl=1
@@ -27,6 +27,7 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 
+programIcon = pygame.image.load('./images/icon/icon.png')
 bg = pygame.image.load("./images/map/background1.png")
 
 while True:
@@ -50,7 +51,6 @@ while True:
 				etape += 1
 		pygame.draw.rect(screen, (255, 0, 0), buttonNB_1)
 		draw_text('1', font, (255, 255, 255), screen, 70, 120)
-
 
 		buttonNB_2 = pygame.Rect(50, 200, 200, 50)
 		if buttonNB_2.collidepoint((mx, my)):
@@ -92,12 +92,12 @@ while True:
 				lvl=1
 
 	if etape==3:
-		print("etape 3")
 		screen.fill(BG_COLOR)
 		if first:
 			level = Level(lvl - 1,nb-1)
 			first=False
 		screen.blit(bg, (0, 0))
+		pygame.display.set_icon(programIcon)
 		level.run()
 
 	if not pygame.mouse.get_pressed()[0]:

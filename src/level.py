@@ -33,8 +33,8 @@ class Level:
 		self.time_last = 0
 		self.night = False
 		pygame.mixer.init()
-		#pygame.mixer.music.load("images\Pixel arts\Pyguin_adventure_ost.mp3")
-		#pygame.mixer.music.play(-1)
+		music = pygame.mixer.music.load("images\Pixel arts\Pyguin_adventure_ost.mp3")
+		pygame.mixer.music.play(loops=-1)
 
 		self.setup_level(lvl,nb)
 
@@ -58,7 +58,7 @@ class Level:
 				if col == 'P':
 					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],1, "BleuClair")
 				if col == 'Q':
-					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],2, "VertFoncé")
+					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],2, "Vert")
 				if col == 'F':
 					self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
 				if col == 'D':
