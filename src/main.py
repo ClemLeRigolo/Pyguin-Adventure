@@ -27,8 +27,11 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 
+bg = pygame.image.load("./images/map/background1.png")
+
 while True:
 	# event loop
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			pygame.quit()
@@ -47,6 +50,7 @@ while True:
 				etape += 1
 		pygame.draw.rect(screen, (255, 0, 0), buttonNB_1)
 		draw_text('1', font, (255, 255, 255), screen, 70, 120)
+
 
 		buttonNB_2 = pygame.Rect(50, 200, 200, 50)
 		if buttonNB_2.collidepoint((mx, my)):
@@ -93,6 +97,7 @@ while True:
 		if first:
 			level = Level(lvl - 1,nb-1)
 			first=False
+		screen.blit(bg, (0, 0))
 		level.run()
 
 	if not pygame.mouse.get_pressed()[0]:

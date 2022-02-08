@@ -56,9 +56,9 @@ class Level:
 				if col == 'B':
 					Ice((x,y),[self.visible_sprites, self.collision_sprites])
 				if col == 'P':
-					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],1)
+					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],1, "BleuClair")
 				if col == 'Q':
-					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],2)
+					self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],2, "VertFoncé")
 				if col == 'F':
 					self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
 				if col == 'D':
@@ -72,12 +72,10 @@ class Level:
 	def run(self):
 		# run the entire game (level)
 		if self.night:
-			print("nuit")
 			if self.time.real()-self.time_start-self.time_last >= 10:
 				self.night = False
 				self.time_last = self.time.real()-self.time_start
 		else:
-			print("jour")
 			if self.time.real()-self.time_start-self.time_last >= 20:
 				self.night = True
 				self.time_last = self.time.real()-self.time_start
@@ -128,7 +126,7 @@ class CameraGroup(pygame.sprite.Group):
 				player1.possibleD = True
 				player2.possibleG = True
 
-		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 640 + CAMERA_BORDERS['left']
+		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 512 + CAMERA_BORDERS['left']
 
 		# camera offset 
 		self.offset = pygame.math.Vector2(
