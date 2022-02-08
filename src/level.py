@@ -1,11 +1,17 @@
 import pygame
 from settings import *
-from tile import Tile
+from sol1 import Sol1
+from sol2 import Sol2
+from sol3 import Sol3
+from sol4 import Sol4
+from sol5 import Sol5
+from ice import Ice
 from fish import Fish
 from door import Door
 from igloo import Igloo
 from player import Player
 from limit import Limit
+from timer import Timer
 
 class Level:
 	def __init__(self):
@@ -21,6 +27,11 @@ class Level:
 		self.door_sprites = pygame.sprite.Group()
 		self.igloo_sprites = pygame.sprite.Group()
 		self.limit_sprites = pygame.sprite.Group()
+		self.time = Timer()
+		self.time.start()
+		self.time_start = self.time.real()
+		self.time_last = 0
+		self.night = False
 
 		self.setup_level()
 
@@ -29,8 +40,18 @@ class Level:
 			for col_index,col in enumerate(row):
 				x = col_index * TILE_SIZE
 				y = row_index * TILE_SIZE
-				if col == 'X' or col == 'B':
-					Tile((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '1':
+					Sol1((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '2':
+					Sol2((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '3':
+					Sol3((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '4':
+					Sol4((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '5':
+					Sol5((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == 'B':
+					Ice((x,y),[self.visible_sprites, self.collision_sprites])
 				if col == 'P':
 					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],1)
 				if col == 'Q':
@@ -47,6 +68,20 @@ class Level:
 
 	def run(self):
 		# run the entire game (level)
+		if self.night:
+			print("nuit")
+			if self.time.real()-self.time_start-self.time_last >= 10:
+				self.night = False
+				self.time_last = self.time.real()-self.time_start
+		else:
+			print("jour")
+			if self.time.real()-self.time_start-self.time_last >= 20:
+				self.night = True
+				self.time_last = self.time.real()-self.time_start
+		self.player1.nuit(self.night)
+		self.player2.nuit(self.night)
+		self.player1.update_pos()
+		self.player2.update_pos()
 		self.active_sprites.update()
 		self.visible_sprites.custom_draw(self.player1,self.player2)
 		self.visible_sprites.custom_draw(self.player2, self.player1)
@@ -67,7 +102,7 @@ class CameraGroup(pygame.sprite.Group):
 		cam_width = self.display_surface.get_size()[0] - (cam_left + CAMERA_BORDERS['right'])
 		cam_height = self.display_surface.get_size()[1] - (cam_top + CAMERA_BORDERS['bottom'])
 
-		self.camera_rect = pygame.Rect(cam_left,cam_top,cam_width,cam_height)
+		self.camera_rect = pygame.Rect(cam_left,cam_top-64,cam_width,cam_height)
 
 	def custom_draw(self,player1,player2):
 
@@ -91,10 +126,6 @@ class CameraGroup(pygame.sprite.Group):
 			else:
 				player1.possibleD = True
 				player2.possibleG = True
-		if player1.rect.top < self.camera_rect.top:
-			self.camera_rect.top = player1.rect.top
-		if player1.rect.bottom > self.camera_rect.bottom:
-			self.camera_rect.bottom = player1.rect.bottom
 
 		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 640 + CAMERA_BORDERS['left']
 
