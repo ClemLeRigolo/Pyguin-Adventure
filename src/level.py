@@ -12,7 +12,7 @@ from igloo import Igloo
 from player import Player
 from limit import Limit
 
-class Level:
+class Level1:
 	def __init__(self):
 
 		# level setup
