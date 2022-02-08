@@ -72,12 +72,10 @@ class Level:
 	def run(self):
 		# run the entire game (level)
 		if self.night:
-			print("nuit")
 			if self.time.real()-self.time_start-self.time_last >= 10:
 				self.night = False
 				self.time_last = self.time.real()-self.time_start
 		else:
-			print("jour")
 			if self.time.real()-self.time_start-self.time_last >= 20:
 				self.night = True
 				self.time_last = self.time.real()-self.time_start
