@@ -1,15 +1,40 @@
-LEVEL_MAP = [
+LEVEL_MAP = [[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
 'B                               B',
-'B                               B',
+'B          5                    B',
 'BF                              B',
+'B2                              B',
 'B                               B',
+'B  231                        25B',
+'B           1                 DIB',
+'B    PQ     B1              2545B',
+'B4344445541 BB35443544354453BBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
+[
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+'B                               B',
+'B          55                   B',
+'BF                              B',
+'B2                              B',
+'B                               B',
+'B  231                        25B',
+'B           1                 DIB',
+'B    PQ     B1              2545B',
+'B4344445541 BB35443544354453BBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
+[
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+'B                               B',
+'B         555                   B',
+'BF                              B',
+'B2                              B',
 'B                               B',
 'B  231                        25B',
 'B           1                 DIB',
 'B    PQ     B1              2545B',
 'B4344445541 BB35443544354453BBBBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
+]
 
 
 TILE_SIZE = 64
