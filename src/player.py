@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.door_sprites = collision_sprites[4]
         self.igloo_sprites = collision_sprites[5]
         self.limit_sprites = collision_sprites[6]
+        self.demon = False
         self.glissade = False
         self.on_floor = False
         self.possibleD = True
@@ -34,41 +35,78 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if self.nb == 1:
-            if keys[pygame.K_RIGHT]:
-                self.direction.x = 1
-            elif keys[pygame.K_LEFT]:
-                self.direction.x = -1
-            else:
-                self.direction.x = 0
+        if self.demon:
+            if self.nb == 1:
+                if keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
+                    self.direction.x = 1
+                elif keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
 
-            if keys[pygame.K_UP] and self.on_floor:
-                self.direction.y = -self.jump_speed
+                if keys[pygame.K_DOWN] and self.on_floor:
+                    self.direction.y = -self.jump_speed
 
-            if keys[pygame.K_DOWN]:
-                self.glissade = True
-            else:
-                self.glissade = False
-                if self.time != 0:
-                    self.time = 0
+                if keys[pygame.K_UP]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
 
-        if self.nb == 2:
-            if keys[pygame.K_d] and not keys[pygame.K_q]:
-                self.direction.x = 1
-            elif keys[pygame.K_q] and not keys[pygame.K_d]:
-                self.direction.x = -1
-            else:
-                self.direction.x = 0
+            if self.nb == 2:
+                if keys[pygame.K_q] and not keys[pygame.K_d]:
+                    self.direction.x = 1
+                elif keys[pygame.K_d] and not keys[pygame.K_q]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
 
-            if keys[pygame.K_z] and self.on_floor:
-                self.direction.y = -self.jump_speed
+                if keys[pygame.K_s] and self.on_floor:
+                    self.direction.y = -self.jump_speed
 
-            if keys[pygame.K_s]:
-                self.glissade = True
-            else:
-                self.glissade = False
-                if self.time != 0:
-                    self.time = 0
+                if keys[pygame.K_z]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+        else:
+            if self.nb == 1:
+                if keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
+                    self.direction.x = 1
+                elif keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_UP] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_DOWN]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+
+            if self.nb == 2:
+                if keys[pygame.K_d] and not keys[pygame.K_q]:
+                    self.direction.x = 1
+                elif keys[pygame.K_q] and not keys[pygame.K_d]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_z] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_s]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
 
     def horizontal_collisions(self):
         for sprite1 in self.limit_sprites.sprites():
@@ -188,28 +226,57 @@ class Player(pygame.sprite.Sprite):
         self.horizontal_collisions()
         self.apply_gravity()
         self.vertical_collisions()
-
-        L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1R.png')
-        R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
-        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisseG.png')
-        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisse.png')
-        if self.glissade and self.direction != 0:
-            if self.direction.x == -1:
-                self.sprite_sheet = D_L_PING_IMG
-            elif self.direction.x == 1:
-                self.sprite_sheet = D_R_PING_IMG
-        else:
-            if self.direction.x == -1:
-                self.sprite_sheet = L_PING_IMG
-            elif self.direction.x == 1:
-                self.sprite_sheet = R_PING_IMG
-
         self.image = self.get_image(0, 0)
         self.image.set_colorkey([0, 8, 255])
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
-
 
     def get_image(self, x, y):
         image = pygame.Surface([32, 32])
         image.blit(self.sprite_sheet, (0, 0), (x, y, 32, 32))
         return image
+
+    def nuit(self, val):
+        L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1R.png')
+        R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
+        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisseG.png')
+        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisse.png')
+        DEM_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        if val:
+            self.demon = True
+        else:
+            self.demon = False
+
+    def update_pos(self):
+        L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1R.png')
+        R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1.png')
+        D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisseG.png')
+        D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\pingouin1_glisse.png')
+        DEM_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_D_L_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        DEM_D_R_PING_IMG = pygame.image.load('images\Pixel arts\Pingouins\diableGris.png')
+        if self.demon:
+            if self.glissade and self.direction != 0:
+                if self.direction.x == -1:
+                    self.sprite_sheet = DEM_D_L_PING_IMG
+                elif self.direction.x == 1:
+                    self.sprite_sheet = DEM_D_R_PING_IMG
+            else:
+                if self.direction.x == -1:
+                    self.sprite_sheet = DEM_L_PING_IMG
+                elif self.direction.x == 1:
+                    self.sprite_sheet = DEM_R_PING_IMG
+        else:
+            if self.glissade and self.direction != 0:
+                if self.direction.x == -1:
+                    self.sprite_sheet = D_L_PING_IMG
+                elif self.direction.x == 1:
+                    self.sprite_sheet = D_R_PING_IMG
+            else:
+                if self.direction.x == -1:
+                    self.sprite_sheet = L_PING_IMG
+                elif self.direction.x == 1:
+                    self.sprite_sheet = R_PING_IMG

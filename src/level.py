@@ -6,6 +6,7 @@ from door import Door
 from igloo import Igloo
 from player import Player
 from limit import Limit
+from timer import Timer
 
 class Level:
 	def __init__(self):
@@ -21,6 +22,11 @@ class Level:
 		self.door_sprites = pygame.sprite.Group()
 		self.igloo_sprites = pygame.sprite.Group()
 		self.limit_sprites = pygame.sprite.Group()
+		self.time = Timer()
+		self.time.start()
+		self.time_start = self.time.real()
+		self.time_last = 0
+		self.night = False
 
 		self.setup_level()
 
@@ -47,6 +53,20 @@ class Level:
 
 	def run(self):
 		# run the entire game (level)
+		if self.night:
+			print("nuit")
+			if self.time.real()-self.time_start-self.time_last >= 10:
+				self.night = False
+				self.time_last = self.time.real()-self.time_start
+		else:
+			print("jour")
+			if self.time.real()-self.time_start-self.time_last >= 20:
+				self.night = True
+				self.time_last = self.time.real()-self.time_start
+		self.player1.nuit(self.night)
+		self.player2.nuit(self.night)
+		self.player1.update_pos()
+		self.player2.update_pos()
 		self.active_sprites.update()
 		self.visible_sprites.custom_draw(self.player1,self.player2)
 		self.visible_sprites.custom_draw(self.player2, self.player1)
