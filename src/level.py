@@ -1,6 +1,11 @@
 import pygame
 from settings import *
-from tile import Tile
+from sol1 import Sol1
+from sol2 import Sol2
+from sol3 import Sol3
+from sol4 import Sol4
+from sol5 import Sol5
+from ice import Ice
 from fish import Fish
 from door import Door
 from igloo import Igloo
@@ -35,8 +40,18 @@ class Level:
 			for col_index,col in enumerate(row):
 				x = col_index * TILE_SIZE
 				y = row_index * TILE_SIZE
-				if col == 'X' or col == 'B':
-					Tile((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '1':
+					Sol1((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '2':
+					Sol2((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '3':
+					Sol3((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '4':
+					Sol4((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == '5':
+					Sol5((x,y),[self.visible_sprites, self.collision_sprites])
+				if col == 'B':
+					Ice((x,y),[self.visible_sprites, self.collision_sprites])
 				if col == 'P':
 					self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites], [self.active_sprites, self.collision_sprites, self.fish_sprites, self.visible_sprites,self.door_sprites,self.igloo_sprites, self.limit_sprites],1)
 				if col == 'Q':
