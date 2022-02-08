@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.fish_sprites = collision_sprites[2]
         self.visible_sprites = collision_sprites[3]
         self.door_sprites = collision_sprites[4]
+        self.igloo_sprites = collision_sprites[5]
         self.glissade = False
         self.on_floor = False
         self.possibleD = True
@@ -83,6 +84,10 @@ class Player(pygame.sprite.Sprite):
                         print("Open")
                         self.collision_sprites.remove(sprite1)
 
+        for sprite1 in self.igloo_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("igloo")
+
         for sprite1 in self.collision_sprites.sprites():
             for sprite2 in self.active_sprite.sprites():
                 a = False
@@ -100,6 +105,21 @@ class Player(pygame.sprite.Sprite):
                             self.rect.right = sprite2.rect.left
 
     def vertical_collisions(self):
+        for sprite1 in self.fish_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("fish")
+                sprite1.grab = True
+                self.visible_sprites.remove(sprite1)
+                self.collision_sprites.remove(sprite1)
+
+        for sprite1 in self.door_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("door")
+                for sprite2 in self.fish_sprites.sprites():
+                    if sprite2.grab == True:
+                        print("Open")
+                        self.collision_sprites.remove(sprite1)
+
         for sprite1 in self.collision_sprites.sprites():
             for sprite2 in self.active_sprite.sprites():
                 if sprite1.rect.colliderect(self.rect):

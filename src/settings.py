@@ -1,13 +1,14 @@
 LEVEL_MAP = [
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-'B       P                   F   B',
-'B    XXXXXXXXX      XXXXXXXXX   B',
-'B      Q                        B',
-'BXXXXXXXXXXXXXXXXXXXXXXXXXXXX   B',
-'B    X                          B',
-'B        XXXXX        XXXXXXXXX B',
-'B                   XXXXXXID    B',
-'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+'B                               B',
+'B                               B',
+'B                               B',
+'B                               B',
+'BF                              B',
+'B                             XXB',
+'B           X                 DIB',
+'B    PQ     XX              XXXXB',
+'BBBBBBBBBBB BBBBBBBBBBBBBBBBBBBBB']
 
 
 TILE_SIZE = 64
