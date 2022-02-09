@@ -294,6 +294,7 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.igloo_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
+                return 5
                 print("igloo")
 
         for sprite1 in self.collision_sprites.sprites():
