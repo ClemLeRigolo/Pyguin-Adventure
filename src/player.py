@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import *
 from color import Color
+from timer import Timer
 
 
 class Player(pygame.sprite.Sprite):
@@ -23,6 +24,12 @@ class Player(pygame.sprite.Sprite):
         self.DEM_S_R_PING_IMG = self.colors.table[9]
         self.DEM_D_L_PING_IMG = self.colors.table[10]
         self.DEM_D_R_PING_IMG = self.colors.table[11]
+        self.SUP_L_PING_IMG = self.colors.table[12]
+        self.SUP_R_PING_IMG = self.colors.table[13]
+        self.SUP_D_L_PING_IMG = self.colors.table[14]
+        self.SUP_D_R_PING_IMG = self.colors.table[15]
+        self.SUP_S_L_PING_IMG = self.colors.table[16]
+        self.SUP_S_R_PING_IMG = self.colors.table[17]
 
         # player movement
         self.nb = nb
@@ -39,6 +46,8 @@ class Player(pygame.sprite.Sprite):
         self.door_sprites = collision_sprites[4]
         self.igloo_sprites = collision_sprites[5]
         self.limit_sprites = collision_sprites[6]
+        self.mask_sprites = collision_sprites[7]
+        self.super = False
         self.demon = False
         self.glissade = False
         self.on_floor = False
@@ -87,6 +96,40 @@ class Player(pygame.sprite.Sprite):
                     self.glissade = False
                     if self.time != 0:
                         self.time = 0
+            elif self.nb == 3:
+                if keys[pygame.K_j] and not keys[pygame.K_l]:
+                    self.direction.x = 1
+                elif keys[pygame.K_l] and not keys[pygame.K_j]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_k] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_i]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+            elif self.nb == 4:
+                if keys[pygame.K_KP4] and not keys[pygame.K_KP6]:
+                    self.direction.x = 1
+                elif keys[pygame.K_KP6] and not keys[pygame.K_KP4]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_KP5] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_KP8]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
         else:
             if self.nb == 1:
                 if keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
@@ -105,8 +148,7 @@ class Player(pygame.sprite.Sprite):
                     self.glissade = False
                     if self.time != 0:
                         self.time = 0
-
-            if self.nb == 2:
+            elif self.nb == 2:
                 if keys[pygame.K_d] and not keys[pygame.K_q]:
                     self.direction.x = 1
                 elif keys[pygame.K_q] and not keys[pygame.K_d]:
@@ -123,9 +165,51 @@ class Player(pygame.sprite.Sprite):
                     self.glissade = False
                     if self.time != 0:
                         self.time = 0
+            elif self.nb == 3:
+                if keys[pygame.K_l] and not keys[pygame.K_j]:
+                    self.direction.x = 1
+                elif keys[pygame.K_j] and not keys[pygame.K_l]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_i] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_k]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+            elif self.nb == 4:
+                if keys[pygame.K_KP6] and not keys[pygame.K_KP4]:
+                    self.direction.x = 1
+                elif keys[pygame.K_KP4] and not keys[pygame.K_KP6]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_KP8] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_KP5]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
 
     def horizontal_collisions(self):
-
+        for sprite1 in self.mask_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("mask")
+                sprite1.grab = True
+                if self.nb == 1:
+                    sprite1.nb = 1
+                elif self.nb == 2:
+                    sprite1.nb = 2
+                self.visible_sprites.remove(sprite1)
 
         for sprite1 in self.fish_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
@@ -164,6 +248,17 @@ class Player(pygame.sprite.Sprite):
                             self.rect.right = sprite2.rect.left
 
     def vertical_collisions(self):
+        for sprite1 in self.mask_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("mask")
+                sprite1.grab = True
+                if self.nb == 1:
+                    sprite1.nb = 1
+                elif self.nb == 2:
+                    sprite1.nb = 2
+                self.visible_sprites.remove(sprite1)
+                self.mask_sprites.remove(sprite1)
+
         for sprite1 in self.limit_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
                 print("limit")
@@ -218,8 +313,8 @@ class Player(pygame.sprite.Sprite):
         if self.direction.x < 0:
             if self.possibleG:
                 if self.glissade:
-                    if (self.speedG / 1.05**self.time) > 1:
-                        self.rect.x += self.direction.x * (self.speedG / 1.05**self.time)
+                    if (self.speedG / 1.05 ** self.time) > 1:
+                        self.rect.x += self.direction.x * (self.speedG / 1.05 ** self.time)
                         self.time += 1
                         self.possibleD = True
                 else:
@@ -229,7 +324,7 @@ class Player(pygame.sprite.Sprite):
             if self.possibleD:
                 if self.glissade:
                     if (self.speedG / 1.05 ** self.time) > 1:
-                        self.rect.x += self.direction.x * (self.speedG / 1.05**self.time)
+                        self.rect.x += self.direction.x * (self.speedG / 1.05 ** self.time)
                         self.time += 1
                         self.possibleG = True
                 else:
@@ -252,10 +347,24 @@ class Player(pygame.sprite.Sprite):
         return image
 
     def nuit(self, val):
+        if not self.super:
+            if val:
+                self.demon = True
+            else:
+                self.demon = False
+
+    def super_hero(self,val):
+        self.demon = False
         if val:
-            self.demon = True
+            self.super = True
+            self.speed = self.speed * 1.3
+            self.speedG = self.speedG * 1.3
+            self.gravity = self.gravity * 0.6
         else:
-            self.demon = False
+            self.super = False
+            self.speed = self.speed / 1.3
+            self.speedG = self.speedG / 1.3
+            self.gravity = self.gravity / 0.6
 
     def update_pos(self):
         if self.last_pos == self.sprite_sheet:
@@ -264,7 +373,40 @@ class Player(pygame.sprite.Sprite):
                 self.time_in_pos = 0
         else:
             self.time_in_pos = 0
-        if self.demon:
+        if self.super:
+            if self.glissade and self.direction.x != 0:
+                if self.direction.x == -1:
+                    self.sprite_sheet = self.SUP_D_L_PING_IMG
+                elif self.direction.x == 1:
+                    self.sprite_sheet = self.SUP_D_R_PING_IMG
+            else:
+                if self.direction.y > 1 or self.direction.y < 0:
+                    if self.direction.x == -1:
+                        self.sprite_sheet = self.SUP_S_L_PING_IMG
+                    elif self.direction.x == 1:
+                        self.sprite_sheet = self.SUP_S_R_PING_IMG
+                    else:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
+                            self.sprite_sheet = self.SUP_S_L_PING_IMG
+                        else:
+                            self.sprite_sheet = self.SUP_S_R_PING_IMG
+                else:
+                    if self.direction.x == -1:
+                        if 0 <= self.time_in_pos < 10:
+                            self.sprite_sheet = self.SUP_S_L_PING_IMG
+                        else:
+                            self.sprite_sheet = self.SUP_L_PING_IMG
+                    elif self.direction.x == 1:
+                        if 0 <= self.time_in_pos < 10:
+                            self.sprite_sheet = self.SUP_S_R_PING_IMG
+                        else:
+                            self.sprite_sheet = self.SUP_R_PING_IMG
+                    else:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
+                            self.sprite_sheet = self.SUP_L_PING_IMG
+                        else:
+                            self.sprite_sheet = self.SUP_R_PING_IMG
+        elif self.demon:
             if self.glissade and self.direction.x != 0:
                 if self.direction.x == -1:
                     self.sprite_sheet = self.DEM_D_L_PING_IMG
@@ -277,7 +419,7 @@ class Player(pygame.sprite.Sprite):
                     elif self.direction.x == 1:
                         self.sprite_sheet = self.DEM_S_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
                             self.sprite_sheet = self.DEM_S_L_PING_IMG
                         else:
                             self.sprite_sheet = self.DEM_S_R_PING_IMG
@@ -293,7 +435,7 @@ class Player(pygame.sprite.Sprite):
                         else:
                             self.sprite_sheet = self.DEM_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
                             self.sprite_sheet = self.DEM_L_PING_IMG
                         else:
                             self.sprite_sheet = self.DEM_R_PING_IMG
@@ -310,7 +452,7 @@ class Player(pygame.sprite.Sprite):
                     elif self.direction.x == 1:
                         self.sprite_sheet = self.S_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
                             self.sprite_sheet = self.S_L_PING_IMG
                         else:
                             self.sprite_sheet = self.S_R_PING_IMG
@@ -326,7 +468,7 @@ class Player(pygame.sprite.Sprite):
                         else:
                             self.sprite_sheet = self.R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG:
+                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
                             self.sprite_sheet = self.L_PING_IMG
                         else:
                             self.sprite_sheet = self.R_PING_IMG

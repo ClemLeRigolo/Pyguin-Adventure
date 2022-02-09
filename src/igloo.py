@@ -11,6 +11,6 @@ class Igloo(pygame.sprite.Sprite):
 
 
 	def get_image(self, x, y):
-		image = pygame.Surface([128, 128])
-		image.blit(self.sprite_sheet, (0, 0), (x, y, 128, 128))
+		image = pygame.Surface([192, 128])
+		image.blit(self.sprite_sheet, (0, 0), (x, y, 192, 128))
 		return image
