@@ -30,6 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.SUP_D_R_PING_IMG = self.colors.table[15]
         self.SUP_S_L_PING_IMG = self.colors.table[16]
         self.SUP_S_R_PING_IMG = self.colors.table[17]
+        self.HOM_L_PING_IMG = self.colors.table[18]
 
         # player movement
         self.nb = nb
@@ -47,6 +48,9 @@ class Player(pygame.sprite.Sprite):
         self.igloo_sprites = collision_sprites[5]
         self.limit_sprites = collision_sprites[6]
         self.mask_sprites = collision_sprites[7]
+        self.bloc_sprites = collision_sprites[8]
+        self.homard_sprites = collision_sprites[9]
+        self.homard = False
         self.super = False
         self.demon = False
         self.glissade = False
@@ -209,7 +213,27 @@ class Player(pygame.sprite.Sprite):
                     sprite1.nb = 1
                 elif self.nb == 2:
                     sprite1.nb = 2
+                elif self.nb == 3:
+                    sprite1.nb = 3
+                elif self.nb == 4:
+                    sprite1.nb = 4
                 self.visible_sprites.remove(sprite1)
+                self.mask_sprites.remove(sprite1)
+
+        for sprite1 in self.homard_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("homard")
+                sprite1.grab = True
+                if self.nb == 1:
+                    sprite1.nb = 1
+                elif self.nb == 2:
+                    sprite1.nb = 2
+                elif self.nb == 3:
+                    sprite1.nb = 3
+                elif self.nb == 4:
+                    sprite1.nb = 4
+                self.visible_sprites.remove(sprite1)
+                self.homard_sprites.remove(sprite1)
 
         for sprite1 in self.fish_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
@@ -256,8 +280,27 @@ class Player(pygame.sprite.Sprite):
                     sprite1.nb = 1
                 elif self.nb == 2:
                     sprite1.nb = 2
+                elif self.nb == 3:
+                    sprite1.nb = 3
+                elif self.nb == 4:
+                    sprite1.nb = 4
                 self.visible_sprites.remove(sprite1)
                 self.mask_sprites.remove(sprite1)
+
+        for sprite1 in self.homard_sprites.sprites():
+            if sprite1.rect.colliderect(self.rect):
+                print("homard")
+                sprite1.grab = True
+                if self.nb == 1:
+                    sprite1.nb = 1
+                elif self.nb == 2:
+                    sprite1.nb = 2
+                elif self.nb == 3:
+                    sprite1.nb = 3
+                elif self.nb == 4:
+                    sprite1.nb = 4
+                self.visible_sprites.remove(sprite1)
+                self.homard_sprites.remove(sprite1)
 
         for sprite1 in self.limit_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
@@ -353,7 +396,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.demon = False
 
-    def super_hero(self,val):
+    def super_hero(self, val):
         self.demon = False
         if val:
             self.super = True
@@ -365,6 +408,13 @@ class Player(pygame.sprite.Sprite):
             self.speed = self.speed / 1.3
             self.speedG = self.speedG / 1.3
             self.gravity = self.gravity / 0.6
+
+    def homard(self,val):
+        self.demon = False
+        if val:
+            self.homard = True
+        else:
+            self.homard = False
 
     def update_pos(self):
         if self.last_pos == self.sprite_sheet:

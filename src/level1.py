@@ -39,6 +39,9 @@ class Level1:
         pygame.mixer.init()
         pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
         pygame.mixer.music.play(loops=-1)
+        self.bgj = pygame.image.load("./images/map/background1.png")
+        self.bgn = pygame.image.load("./images/map/background2.png")
+        self.change = False
 
         self.setup_level(lvl, nb)
 
@@ -91,10 +94,12 @@ class Level1:
             self.mask_sprites.add(self.mask)
             self.visible_sprites.add(self.mask)
         if self.night:
+            self.display_surface.blit(self.bgn.convert_alpha(), (0, 0))
             if self.time.real() - self.time_start - self.time_last >= 10:
                 self.night = False
                 self.time_last = self.time.real() - self.time_start
         else:
+            self.display_surface.blit(self.bgj.convert_alpha(), (0, 0))
             if self.time.real() - self.time_start - self.time_last >= 20:
                 self.night = True
                 self.time_last = self.time.real() - self.time_start

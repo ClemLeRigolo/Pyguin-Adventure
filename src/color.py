@@ -22,6 +22,7 @@ class Color:
         self.table[15] = pygame.image.load("images\Pixel arts\Pingouins\SuperPingouin" + color + "_glisse.png")
         self.table[16] = pygame.image.load("images\Pixel arts\Pingouins\SautSuperPingouin" + color + "G.png")
         self.table[17] = pygame.image.load("images\Pixel arts\Pingouins\SautSuperPingouin" + color + ".png")
+        self.table[18] = pygame.image.load("images\Pixel arts\Pingouins\SautSuperPingouin" + color + ".png")
 
 
 

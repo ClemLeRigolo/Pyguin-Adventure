@@ -17,7 +17,7 @@ LEVEL_MAP = [
 'B          5                    B',
 'BF                              B',
 'B2                              B',
-'B                           2345B',
+'B   H                       2345B',
 'B  231                      D I B',
 'B           1                   B',
 'B    PQ     B1      M       2545B',
