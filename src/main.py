@@ -52,8 +52,8 @@ while True:
         mx, my = pygame.mouse.get_pos()
         Pred=False
 
-        if mx>400:
-            start_img = pygame.image.load('./images/boutons/P.png').convert_alpha()
+        if 600>mx>400 and 420>my>350:
+            start_img = pygame.image.load('./images/boutons/PlayHover.png').convert_alpha()
         else:
             start_img = pygame.image.load('./images/boutons/Play.png').convert_alpha()
         start_button = button.Button(400, 350, start_img, 0.8)
@@ -173,7 +173,9 @@ while True:
             elif nb == 4:
                 level = Level4(lvl - 1, nb - 1)
             first = False
-        level.run()
+        if level.run()==5:
+            etape=2
+
 
     if etape == 9:
         screen.fill((0, 0, 0))
