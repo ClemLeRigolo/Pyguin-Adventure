@@ -96,6 +96,40 @@ class Player(pygame.sprite.Sprite):
                     self.glissade = False
                     if self.time != 0:
                         self.time = 0
+            elif self.nb == 3:
+                if keys[pygame.K_j] and not keys[pygame.K_l]:
+                    self.direction.x = 1
+                elif keys[pygame.K_l] and not keys[pygame.K_j]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_k] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_i]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+            elif self.nb == 4:
+                if keys[pygame.K_KP4] and not keys[pygame.K_KP6]:
+                    self.direction.x = 1
+                elif keys[pygame.K_KP6] and not keys[pygame.K_KP4]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_KP5] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_KP8]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
         else:
             if self.nb == 1:
                 if keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
@@ -114,8 +148,7 @@ class Player(pygame.sprite.Sprite):
                     self.glissade = False
                     if self.time != 0:
                         self.time = 0
-
-            if self.nb == 2:
+            elif self.nb == 2:
                 if keys[pygame.K_d] and not keys[pygame.K_q]:
                     self.direction.x = 1
                 elif keys[pygame.K_q] and not keys[pygame.K_d]:
@@ -127,6 +160,40 @@ class Player(pygame.sprite.Sprite):
                     self.direction.y = -self.jump_speed
 
                 if keys[pygame.K_s]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+            elif self.nb == 3:
+                if keys[pygame.K_l] and not keys[pygame.K_j]:
+                    self.direction.x = 1
+                elif keys[pygame.K_j] and not keys[pygame.K_l]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_i] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_k]:
+                    self.glissade = True
+                else:
+                    self.glissade = False
+                    if self.time != 0:
+                        self.time = 0
+            elif self.nb == 4:
+                if keys[pygame.K_KP6] and not keys[pygame.K_KP4]:
+                    self.direction.x = 1
+                elif keys[pygame.K_KP4] and not keys[pygame.K_KP6]:
+                    self.direction.x = -1
+                else:
+                    self.direction.x = 0
+
+                if keys[pygame.K_KP8] and self.on_floor:
+                    self.direction.y = -self.jump_speed
+
+                if keys[pygame.K_KP5]:
                     self.glissade = True
                 else:
                     self.glissade = False
