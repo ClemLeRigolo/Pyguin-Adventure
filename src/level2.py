@@ -218,13 +218,19 @@ class Level2:
             self.active_sprites.update()
             self.visible_sprites.custom_draw(self.player1, self.player2)
             self.visible_sprites.custom_draw(self.player2, self.player1)
+            bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
+            bg_button = button.Button(0, 0, bg_time, 1)
+            bg_button.draw(self.display_surface)
             self.minute = (self.time.real() - self.time_start) // 60
             self.seconde = ((self.time.real() - self.time_start) % 60) // 1
             if self.seconde < 10:
                 img = self.temps.render(str(int(self.minute)) + ':0' + str(int(self.seconde)), True, (0, 0, 0))
             else:
                 img = self.temps.render(str(int(self.minute)) + ':' + str(int(self.seconde)), True, (0, 0, 0))
-            self.display_surface.blit(img, (20, 20))
+            if self.minute < 10:
+                self.display_surface.blit(img, (40, 20))
+            else:
+                self.display_surface.blit(img, (20, 20))
 
 
 class CameraGroup(pygame.sprite.Group):
