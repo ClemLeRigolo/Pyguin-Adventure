@@ -1,4 +1,6 @@
+import button
 import pygame
+
 from settings import *
 from sol1 import Sol1
 from sol2 import Sol2
@@ -42,15 +44,18 @@ class Level2:
         self.time_last = 0
         self.time_last_super = 0
         self.time_last_homard = 0
+        self.time_at_pause = 0
+        self.time_at_play = 0
         self.night = False
         pygame.mixer.init()
-        #pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
-        #pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
+        pygame.mixer.music.play(loops=-1)
         self.bgj = pygame.image.load("./images/map/background1.png")
         self.bgn = pygame.image.load("./images/map/background2.png")
         self.change = False
         self.mask_is = False
         self.homard_is = False
+        self.game_paused = False
 
         self.setup_level(lvl, nb)
 
@@ -108,57 +113,97 @@ class Level2:
 
     def run(self):
         # run the entire game (level)
-        if self.mask.grab and self.time_last_super == 0:
-            self.time_last_super = self.time.real() - self.time_start
-            if self.mask.nb == 1:
-                self.player1.super_hero(True)
-            elif self.mask.nb == 2:
-                self.player2.super_hero(True)
-        elif 25 > self.time.real() - self.time_start - self.time_last_super >= 20:
-            if self.mask.nb == 1:
-                self.player1.super_hero(False)
-            elif self.mask.nb == 2:
-                self.player2.super_hero(False)
-            self.mask.nb = 0
-        elif self.time.real() - self.time_start - self.time_last_super >= 25:
-            self.time_last_super = 0
-            self.mask.grab = False
-            self.mask_sprites.add(self.mask)
-            self.visible_sprites.add(self.mask)
-        if self.homard.grab and self.time_last_homard == 0:
-            self.time_last_homard = self.time.real() - self.time_start
-            if self.homard.nb == 1:
-                self.player1.set_homard(True)
-            elif self.homard.nb == 2:
-                self.player2.set_homard(True)
-        elif 25 > self.time.real() - self.time_start - self.time_last_homard >= 20:
-            if self.homard.nb == 1:
-                self.player1.set_homard(False)
-            elif self.homard.nb == 2:
-                self.player2.set_homard(False)
-            self.homard.nb = 0
-        elif self.time.real() - self.time_start - self.time_last_homard >= 25:
-            self.time_last_homard = 0
-            self.homard.grab = False
-            self.homard_sprites.add(self.homard)
-            self.visible_sprites.add(self.homard)
-        if self.night:
-            self.display_surface.blit(self.bgn.convert_alpha(), (0, 0))
-            if self.time.real() - self.time_start - self.time_last >= 10:
-                self.night = False
-                self.change = False
-                self.time_last = self.time.real() - self.time_start
+        keys = pygame.key.get_pressed()
+        mx, my = pygame.mouse.get_pos()
+        if keys[pygame.K_ESCAPE] and not self.game_paused:
+            if self.night:
+                self.display_surface.blit(self.bgn.convert_alpha(), (0, 0))
+            else:
+                self.display_surface.blit(self.bgj.convert_alpha(), (0, 0))
+            bgpause = pygame.Rect(51, 38, 921, 691)
+            pygame.draw.rect(self.display_surface, (168, 211, 228), bgpause)
+            self.game_paused = True
+            pygame.mixer.music.pause()
+            self.time_at_pause = self.time.real() - self.time_start
+        elif self.game_paused:
+            if self.night:
+                self.display_surface.blit(self.bgn.convert_alpha(), (0, 0))
+            else:
+                self.display_surface.blit(self.bgj.convert_alpha(), (0, 0))
+            bgpause = pygame.Rect(51, 38, 921, 691)
+            pygame.draw.rect(self.display_surface, (168, 211, 228), bgpause)
+            pause_img = pygame.image.load('./images/boutons/pause.png').convert_alpha()
+            pause_button = button.Button(262, 100, pause_img, 1)
+            pause_button.draw(self.display_surface)
+            if 762 > mx > 262 and 460 > my > 300:
+                resum_img = pygame.image.load('./images/boutons/resumeHover.png').convert_alpha()
+            else:
+                resum_img = pygame.image.load('./images/boutons/resume.png').convert_alpha()
+            resum_button = button.Button(262, 300, resum_img, 1)
+            if resum_button.draw(self.display_surface):
+                pygame.mixer.music.unpause()
+                self.game_paused = False
+                self.time_at_play = self.time.real() - self.time_start
+                self.time_start += self.time_at_play - self.time_at_pause
+            if 762 > mx > 262 and 660 > my > 500:
+                leave_img = pygame.image.load('./images/boutons/leaveHover.png').convert_alpha()
+            else:
+                leave_img = pygame.image.load('./images/boutons/leave.png').convert_alpha()
+            leave_button = button.Button(262, 500, leave_img, 1)
+            if leave_button.draw(self.display_surface):
+                print("leave")
         else:
-            self.display_surface.blit(self.bgj.convert_alpha(), (0, 0))
-            if self.time.real() - self.time_start - self.time_last >= 20:
-                self.night = True
-                self.change = False
-                self.time_last = self.time.real() - self.time_start
-        self.player1.nuit(self.night)
-        self.player2.nuit(self.night)
-        self.active_sprites.update()
-        self.visible_sprites.custom_draw(self.player1, self.player2)
-        self.visible_sprites.custom_draw(self.player2, self.player1)
+            if self.mask.grab and self.time_last_super == 0:
+                self.time_last_super = self.time.real() - self.time_start
+                if self.mask.nb == 1:
+                    self.player1.super_hero(True)
+                elif self.mask.nb == 2:
+                    self.player2.super_hero(True)
+            elif 25 > self.time.real() - self.time_start - self.time_last_super >= 20:
+                if self.mask.nb == 1:
+                    self.player1.super_hero(False)
+                elif self.mask.nb == 2:
+                    self.player2.super_hero(False)
+                self.mask.nb = 0
+            elif self.time.real() - self.time_start - self.time_last_super >= 25:
+                self.time_last_super = 0
+                self.mask.grab = False
+                self.mask_sprites.add(self.mask)
+                self.visible_sprites.add(self.mask)
+            if self.homard.grab and self.time_last_homard == 0:
+                self.time_last_homard = self.time.real() - self.time_start
+                if self.homard.nb == 1:
+                    self.player1.set_homard(True)
+                elif self.homard.nb == 2:
+                    self.player2.set_homard(True)
+            elif 25 > self.time.real() - self.time_start - self.time_last_homard >= 20:
+                if self.homard.nb == 1:
+                    self.player1.set_homard(False)
+                elif self.homard.nb == 2:
+                    self.player2.set_homard(False)
+                self.homard.nb = 0
+            elif self.time.real() - self.time_start - self.time_last_homard >= 25:
+                self.time_last_homard = 0
+                self.homard.grab = False
+                self.homard_sprites.add(self.homard)
+                self.visible_sprites.add(self.homard)
+            if self.night:
+                self.display_surface.blit(self.bgn.convert_alpha(), (0, 0))
+                if self.time.real() - self.time_start - self.time_last >= 10:
+                    self.night = False
+                    self.change = False
+                    self.time_last = self.time.real() - self.time_start
+            else:
+                self.display_surface.blit(self.bgj.convert_alpha(), (0, 0))
+                if self.time.real() - self.time_start - self.time_last >= 20:
+                    self.night = True
+                    self.change = False
+                    self.time_last = self.time.real() - self.time_start
+            self.player1.nuit(self.night)
+            self.player2.nuit(self.night)
+            self.active_sprites.update()
+            self.visible_sprites.custom_draw(self.player1, self.player2)
+            self.visible_sprites.custom_draw(self.player2, self.player1)
 
 
 class CameraGroup(pygame.sprite.Group):

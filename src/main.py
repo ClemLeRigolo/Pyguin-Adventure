@@ -1,6 +1,5 @@
 import pygame, sys, button
 
-
 sys.path.append('../')
 from settings import *
 from level1 import Level1
@@ -14,12 +13,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Pyguins Adventure')
 clock = pygame.time.Clock()
 
-
 lvl = 1
 nb = 1
 
-etape=0
-
+etape = 0
 
 first = True
 
@@ -36,7 +33,7 @@ def draw_text(text, font, color, surface, x, y):
 
 
 programIcon = pygame.image.load('./images/icon/icon.png')
-
+pygame.display.set_icon(programIcon)
 
 while True:
     # event loop
@@ -45,20 +42,20 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if etape==0:
+    if etape == 0:
         display_surface = pygame.display.get_surface()
         bgn = pygame.image.load("./images/boutons/backgroundAcceuil.png")
         display_surface.blit(bgn.convert_alpha(), (0, 0))
         mx, my = pygame.mouse.get_pos()
-        Pred=False
+        Pred = False
 
-        if 600>mx>400 and 420>my>350:
+        if 600 > mx > 400 and 420 > my > 350:
             start_img = pygame.image.load('./images/boutons/PlayHover.png').convert_alpha()
         else:
             start_img = pygame.image.load('./images/boutons/Play.png').convert_alpha()
         start_button = button.Button(400, 350, start_img, 0.8)
         if start_button.draw(screen):
-            etape= 1
+            etape = 1
 
         rules_img = pygame.image.load('./images/boutons/HowToPlay.png').convert_alpha()
         rules_button = button.Button(400, 450, rules_img, 0.8)
@@ -76,7 +73,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if etape==1:
+    if etape == 1:
         screen.fill((0, 0, 0))
         draw_text('NB JOUEURS', font, (255, 255, 255), screen, 400, 20)
         mx, my = pygame.mouse.get_pos()
@@ -121,7 +118,7 @@ while True:
         draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
         Pred = False
 
-    if etape==2:
+    if etape == 2:
         screen.fill((0, 0, 0))
         draw_text('NIVEAU', font, (255, 255, 255), screen, 520, 20)
         mx, my = pygame.mouse.get_pos()
@@ -148,17 +145,17 @@ while True:
             if Pred and pygame.mouse.get_pressed()[0]:
                 print("etape 2")
                 etape = 3
-                lvl=1
+                lvl = 1
         if buttonLVL_2.collidepoint((mx, my)):
             if Pred and pygame.mouse.get_pressed()[0]:
                 print("etape 2")
                 etape = 3
-                lvl=2
+                lvl = 2
         if buttonLVL_3.collidepoint((mx, my)):
             if Pred and pygame.mouse.get_pressed()[0]:
                 print("etape 2")
                 etape = 3
-                lvl=3
+                lvl = 3
         Pred = False
 
     if etape == 3:
@@ -173,9 +170,8 @@ while True:
             elif nb == 4:
                 level = Level4(lvl - 1, nb - 1)
             first = False
-        if level.run()==5:
-            etape=2
-
+        if level.run() == 5:
+            etape = 2
 
     if etape == 9:
         screen.fill((0, 0, 0))
@@ -193,14 +189,14 @@ while True:
         pygame.draw.rect(screen, (255, 0, 0), buttonR_1)
         draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
-    if etape==10:
+    if etape == 10:
         screen.fill((0, 0, 0))
         font = pygame.font.SysFont(None, 50)
         draw_text('Credits', font, (255, 255, 255), screen, 400, 20)
         font = pygame.font.SysFont(None, 20)
         draw_text('Réalisé grace à ...', font, (255, 255, 255), screen, 300, 100)
         mx, my = pygame.mouse.get_pos()
-        Pred=False
+        Pred = False
 
         buttonS_1 = pygame.Rect(50, 50, 100, 50)
         if buttonS_1.collidepoint((mx, my)):
@@ -210,11 +206,10 @@ while True:
         draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
     if not pygame.mouse.get_pressed()[0]:
-        Pred=True
+        Pred = True
     else:
-        Pred=False
+        Pred = False
 
     # drawing logic
     pygame.display.update()
     clock.tick(60)
-
