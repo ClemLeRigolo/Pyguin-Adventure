@@ -46,6 +46,9 @@ class Level4:
         self.time_last_homard = 0
         self.time_at_pause = 0
         self.time_at_play = 0
+        self.minute = 0
+        self.seconde = 0
+        self.temps = pygame.font.SysFont(None, 100)
         self.night = False
         pygame.mixer.init()
         pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
@@ -145,6 +148,17 @@ class Level4:
                 self.display_surface.blit(self.bgj.convert_alpha(), (0, 0))
             bgpause = pygame.Rect(51, 38, 921, 691)
             pygame.draw.rect(self.display_surface, (168, 211, 228), bgpause)
+            self.minute = self.time_at_pause.real // 60
+            self.seconde = (self.time_at_pause.real % 60) // 1
+            temps_pause = pygame.font.SysFont(None, 50)
+            if self.seconde < 10:
+                img = temps_pause.render('(' + str(int(self.minute)) + ':0' + str(int(self.seconde)) + ')', True,
+                                         (0, 0, 0))
+                self.display_surface.blit(img, (462, 50))
+            else:
+                img = temps_pause.render('(' + str(int(self.minute)) + ':' + str(int(self.seconde)) + ')', True,
+                                         (0, 0, 0))
+                self.display_surface.blit(img, (451, 50))
             pause_img = pygame.image.load('./images/boutons/pause.png').convert_alpha()
             pause_button = button.Button(262, 100, pause_img, 1)
             pause_button.draw(self.display_surface)
@@ -235,6 +249,13 @@ class Level4:
             self.visible_sprites.custom_draw(self.player2, self.player1, self.player3, self.player4)
             self.visible_sprites.custom_draw(self.player3, self.player1, self.player2, self.player4)
             self.visible_sprites.custom_draw(self.player4, self.player1, self.player2, self.player3)
+            self.minute = (self.time.real() - self.time_start) // 60
+            self.seconde = ((self.time.real() - self.time_start) % 60) // 1
+            if self.seconde < 10:
+                img = self.temps.render(str(int(self.minute)) + ':0' + str(int(self.seconde)), True, (0, 0, 0))
+            else:
+                img = self.temps.render(str(int(self.minute)) + ':' + str(int(self.seconde)), True, (0, 0, 0))
+            self.display_surface.blit(img, (20, 20))
 
 
 class CameraGroup(pygame.sprite.Group):
