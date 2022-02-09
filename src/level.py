@@ -33,8 +33,8 @@ class Level:
 		self.time_last = 0
 		self.night = False
 		pygame.mixer.init()
-		music = pygame.mixer.music.load("images\Pixel arts\Pyguin_adventure_ost.mp3")
-		pygame.mixer.music.play(loops=-1)
+		#music = pygame.mixer.music.load("images\Pixel arts\Pyguin_adventure_ost.mp3")
+		#pygame.mixer.music.play(loops=-1)
 
 		self.setup_level(lvl,nb)
 
