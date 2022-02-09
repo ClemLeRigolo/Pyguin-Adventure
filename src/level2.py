@@ -113,17 +113,17 @@ class Level2:
             self.mask.grab = False
             self.mask_sprites.add(self.mask)
             self.visible_sprites.add(self.mask)
-        if self.homard.grab and self.time_last_super == 0:
-            self.time_last_super = self.time.real() - self.time_start
+        if self.homard.grab and self.time_last_homard == 0:
+            self.time_last_homard = self.time.real() - self.time_start
             if self.homard.nb == 1:
-                self.player1.super_hero(True)
+                self.player1.set_homard(True)
             elif self.homard.nb == 2:
-                self.player2.super_hero(True)
+                self.player2.set_homard(True)
         elif 25 > self.time.real() - self.time_start - self.time_last_homard >= 20:
             if self.homard.nb == 1:
-                self.player1.super_hero(False)
+                self.player1.set_homard(False)
             elif self.homard.nb == 2:
-                self.player2.super_hero(False)
+                self.player2.set_homard(False)
             self.homard.nb = 0
         elif self.time.real() - self.time_start - self.time_last_homard >= 25:
             self.time_last_homard = 0

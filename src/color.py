@@ -3,7 +3,7 @@ import pygame
 
 class Color:
     def __init__(self, color):
-        self.table = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+        self.table = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
         self.table[0] = pygame.image.load("images\Pixel arts\Pingouins\Pingouin" + color + "G.png")
         self.table[1] = pygame.image.load("images\Pixel arts\Pingouins\Pingouin" + color + ".png")
         self.table[2] = pygame.image.load("images\Pixel arts\Pingouins\Saut" + color + "G.png")
@@ -22,7 +22,7 @@ class Color:
         self.table[15] = pygame.image.load("images\Pixel arts\Pingouins\SuperPingouin" + color + "_glisse.png")
         self.table[16] = pygame.image.load("images\Pixel arts\Pingouins\SautSuperPingouin" + color + "G.png")
         self.table[17] = pygame.image.load("images\Pixel arts\Pingouins\SautSuperPingouin" + color + ".png")
-        self.table[18] = pygame.image.load("images\Pixel arts\Pingouins\SautSuperPingouin" + color + ".png")
+        self.table[18] = pygame.image.load("images\Pixel arts\Pingouins\HommardPingouin" + color + "G.png")
 
 
 

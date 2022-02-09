@@ -7,7 +7,7 @@ class Mask(pygame.sprite.Sprite):
         super().__init__(groups)
         self.sprite_sheet = pygame.image.load('images/Pixel arts/Autres/Masque.png')
         self.image = self.get_image(0, 0)
-        self.image.set_colorkey([0, 8, 255])
+        self.image.set_colorkey([0, 7, 255])
         self.rect = self.image.get_rect(topleft=pos)
         self.grab = False
         self.nb = 0
