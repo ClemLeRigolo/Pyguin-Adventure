@@ -15,6 +15,7 @@ from timer import Timer
 from mask import Mask
 from bloc import Bloc
 from homard import Homard
+from bloc_break import Bloc_break
 
 
 class Level2:
@@ -34,6 +35,7 @@ class Level2:
         self.limit_sprites = pygame.sprite.Group()
         self.bloc_sprites = pygame.sprite.Group()
         self.homard_sprites = pygame.sprite.Group()
+        self.bloc_break_sprites = pygame.sprite.Group()
         self.time = Timer()
         self.time.start()
         self.time_start = self.time.real()
@@ -47,6 +49,8 @@ class Level2:
         self.bgj = pygame.image.load("./images/map/background1.png")
         self.bgn = pygame.image.load("./images/map/background2.png")
         self.change = False
+        self.mask_is = False
+        self.homard_is = False
 
         self.setup_level(lvl, nb)
 
@@ -72,13 +76,13 @@ class Level2:
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites], 1, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 1, "Gris")
                 if col == 'Q':
                     self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites],
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites], 2, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 2, "Gris")
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
                 if col == 'D':
@@ -89,10 +93,18 @@ class Level2:
                     self.limit = Limit((x, y), self.limit_sprites)
                 if col == 'M':
                     self.mask = Mask((x, y), [self.visible_sprites, self.mask_sprites])
+                    self.mask_is = True
                 if col == 'X':
                     self.bloc = Bloc((x, y), [self.visible_sprites, self.bloc_sprites])
                 if col == 'H':
                     self.homard = Homard((x, y), [self.visible_sprites, self.homard_sprites])
+                    self.homard_is = True
+                if col == 'C':
+                    self.bloc_break = Bloc_break((x, y), [self.visible_sprites, self.bloc_break_sprites, self.collision_sprites])
+        if not self.mask_is:
+            self.mask = Mask((-200, -300), [self.visible_sprites, self.mask_sprites])
+        if not self.homard_is:
+            self.homard = Homard((-200, -300), [self.visible_sprites, self.homard_sprites])
 
     def run(self):
         # run the entire game (level)
