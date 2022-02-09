@@ -15,7 +15,7 @@ from timer import Timer
 from mask import Mask
 
 
-class Level:
+class Level4:
     def __init__(self, lvl, nb):
 
         # level setup
@@ -69,6 +69,16 @@ class Level:
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites], 2, "Gris")
+                if col == 'R':
+                    self.player3 = Player((x, y), [self.visible_sprites, self.active_sprites],
+                                          [self.active_sprites, self.collision_sprites, self.fish_sprites,
+                                           self.visible_sprites, self.door_sprites, self.igloo_sprites,
+                                           self.limit_sprites, self.mask_sprites], 3, "Gris")
+                if col == 'S':
+                    self.player4 = Player((x, y), [self.visible_sprites, self.active_sprites],
+                                          [self.active_sprites, self.collision_sprites, self.fish_sprites,
+                                           self.visible_sprites, self.door_sprites, self.igloo_sprites,
+                                           self.limit_sprites, self.mask_sprites], 4, "Gris")
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
                 if col == 'D':
@@ -88,18 +98,25 @@ class Level:
                 self.player1.super_hero(True)
             elif self.mask.nb == 2:
                 self.player2.super_hero(True)
+            elif self.mask.nb == 3:
+                self.player3.super_hero(True)
+            elif self.mask.nb == 4:
+                self.player3.super_hero(True)
         elif 25 > self.time.real() - self.time_start - self.time_last_super >= 20:
             if self.mask.nb == 1:
                 self.player1.super_hero(False)
             elif self.mask.nb == 2:
                 self.player2.super_hero(False)
+            elif self.mask.nb == 3:
+                self.player3.super_hero(False)
+            elif self.mask.nb == 4:
+                self.player3.super_hero(False)
             self.mask.nb = 0
         elif self.time.real() - self.time_start - self.time_last_super >= 25:
             self.time_last_super = 0
             self.mask.grab = False
             self.mask_sprites.add(self.mask)
             self.visible_sprites.add(self.mask)
-
         if self.night:
             if self.time.real() - self.time_start - self.time_last >= 10:
                 self.night = False
@@ -110,9 +127,13 @@ class Level:
                 self.time_last = self.time.real() - self.time_start
         self.player1.nuit(self.night)
         self.player2.nuit(self.night)
+        self.player3.nuit(self.night)
+        self.player4.nuit(self.night)
         self.active_sprites.update()
-        self.visible_sprites.custom_draw(self.player1, self.player2)
-        self.visible_sprites.custom_draw(self.player2, self.player1)
+        self.visible_sprites.custom_draw(self.player1, self.player2, self.player3, self.player4)
+        self.visible_sprites.custom_draw(self.player2, self.player1, self.player3, self.player4)
+        self.visible_sprites.custom_draw(self.player3, self.player1, self.player2, self.player4)
+        self.visible_sprites.custom_draw(self.player4, self.player1, self.player2, self.player3)
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -133,7 +154,7 @@ class CameraGroup(pygame.sprite.Group):
 
         self.camera_rect = pygame.Rect(cam_left, cam_top - 64, cam_width, cam_height)
 
-    def custom_draw(self, player1, player2):
+    def custom_draw(self, player1, player2, player3, player4):
 
         # get the player offset
         # self.offset.x = player.rect.centerx - self.half_w
@@ -145,18 +166,83 @@ class CameraGroup(pygame.sprite.Group):
             if player2.rect.right >= self.camera_rect.right:
                 player1.possibleG = False
                 player2.possibleD = False
+                player3.possibleD = True
+                player4.possibleD = True
+            elif player3.rect.right >= self.camera_rect.right:
+                player1.possibleG = False
+                player2.possibleD = True
+                player3.possibleD = False
+                player4.possibleD = True
+            elif player4.rect.right >= self.camera_rect.right:
+                player1.possibleG = False
+                player2.possibleD = True
+                player3.possibleD = True
+                player4.possibleD = False
+            elif player3.rect.right >= self.camera_rect.right and player2.rect.right >= self.camera_rect.right:
+                player1.possibleG = False
+                player2.possibleD = False
+                player3.possibleD = False
+                player4.possibleD = True
+            elif player3.rect.right >= self.camera_rect.right and player4.rect.right >= self.camera_rect.right:
+                player1.possibleG = False
+                player2.possibleD = True
+                player3.possibleD = False
+                player4.possibleD = False
+            elif player2.rect.right >= self.camera_rect.right and player4.rect.right >= self.camera_rect.right:
+                player1.possibleG = False
+                player2.possibleD = False
+                player3.possibleD = True
+                player4.possibleD = False
+            elif player2.rect.right >= self.camera_rect.right and player3.rect.right >= self.camera_rect.right and player4.rect.right >= self.camera_rect.right:
+                player1.possibleG = False
+                player2.possibleD = False
+                player3.possibleD = False
+                player4.possibleD = False
             else:
                 player1.possibleG = True
                 player2.possibleD = True
+                player3.possibleD = True
+                player4.possibleD = True
         if player1.rect.right > self.camera_rect.right:
             if player2.rect.left <= self.camera_rect.left:
                 player1.possibleD = False
                 player2.possibleG = False
+                player3.possibleG = True
+                player4.possibleG = True
+            elif player3.rect.left <= self.camera_rect.left:
+                player1.possibleD = False
+                player2.possibleG = True
+                player3.possibleG = False
+                player4.possibleG = True
+            elif player4.rect.left <= self.camera_rect.left:
+                player1.possibleD = False
+                player2.possibleG = True
+                player3.possibleG = True
+                player4.possibleG = False
+            elif player2.rect.left <= self.camera_rect.left and player3.rect.left <= self.camera_rect.left:
+                player1.possibleD = False
+                player2.possibleG = False
+                player3.possibleG = False
+                player4.possibleG = True
+            elif player2.rect.left <= self.camera_rect.left and player4.rect.left <= self.camera_rect.left:
+                player1.possibleD = False
+                player2.possibleG = False
+                player3.possibleG = True
+                player4.possibleG = False
+            elif player3.rect.left <= self.camera_rect.left and player3.rect.left <= self.camera_rect.left:
+                player1.possibleD = False
+                player2.possibleG = True
+                player3.possibleG = False
+                player4.possibleG = False
             else:
                 player1.possibleD = True
                 player2.possibleG = True
+                player3.possibleG = True
+                player4.possibleG = True
 
-        self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 512 + CAMERA_BORDERS['left']
+        left = max(player1.rect.left, player2.rect.left, player3.rect.left, player4.rect.left)
+        right = min(player1.rect.left, player2.rect.left, player3.rect.left, player4.rect.left)
+        self.camera_rect.left = (left + right) / 2 - 512 + CAMERA_BORDERS['left']
 
         # camera offset
         self.offset = pygame.math.Vector2(
