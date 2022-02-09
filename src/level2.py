@@ -45,6 +45,42 @@ class Level2:
 
         self.setup_level(lvl, nb)
 
+        def setup_level(self, lvl):
+            for row_index, row in enumerate(LEVEL_MAP[lvl]):
+                for col_index, col in enumerate(row):
+                    x = col_index * TILE_SIZE
+                    y = row_index * TILE_SIZE
+                    if col == '1':
+                        Sol1((x, y), [self.visible_sprites, self.collision_sprites])
+                    if col == '2':
+                        Sol2((x, y), [self.visible_sprites, self.collision_sprites])
+                    if col == '3':
+                        Sol3((x, y), [self.visible_sprites, self.collision_sprites])
+                    if col == '4':
+                        Sol4((x, y), [self.visible_sprites, self.collision_sprites])
+                    if col == '5':
+                        Sol5((x, y), [self.visible_sprites, self.collision_sprites])
+                    if col == 'B':
+                        Ice((x, y), [self.visible_sprites, self.collision_sprites])
+                    if col == 'P':
+                        self.player1 = Player((x, y), [self.visible_sprites, self.active_sprites],
+                                              [self.active_sprites, self.collision_sprites, self.fish_sprites,
+                                               self.visible_sprites, self.door_sprites, self.igloo_sprites,
+                                               self.limit_sprites], 1, "BleuClair")
+                    if col == 'Q':
+                        self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites],
+                                              [self.active_sprites, self.collision_sprites, self.fish_sprites,
+                                               self.visible_sprites, self.door_sprites, self.igloo_sprites,
+                                               self.limit_sprites], 2, "Rose")
+                    if col == 'F':
+                        self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
+                    if col == 'D':
+                        self.door = Door((x, y), [self.visible_sprites, self.collision_sprites, self.door_sprites])
+                    if col == 'I':
+                        self.igloo = Igloo((x, y), [self.visible_sprites, self.collision_sprites, self.igloo_sprites])
+                    if col == 'Y':
+                        self.limit = Limit((x, y), self.limit_sprites)
+
     def setup_level(self, lvl, nb):
         for row_index, row in enumerate(LEVEL_MAP[nb][lvl]):
             for col_index, col in enumerate(row):
