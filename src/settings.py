@@ -21,7 +21,7 @@ LEVEL_MAP = [
 'B  231                     D I  B',
 'B           1                   B',
 'B    PQ     B1      M     253345B',
-'B434444551  BB35443544354453BBBBB',
+'B434444551  BB354435443544BBBBBBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
 [
@@ -30,7 +30,7 @@ LEVEL_MAP = [
 'B          55                   B',
 'BF                              B',
 'B2                              B',
-'B              I                B',
+'B                               B',
 'B  231                        25B',
 'B           1                 DIB',
 'B    PQ     B1     M        2545B',

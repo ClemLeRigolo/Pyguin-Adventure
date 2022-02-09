@@ -100,7 +100,7 @@ class Level1:
                 self.time_last = self.time.real() - self.time_start
         self.player1.nuit(self.night)
         self.active_sprites.update()
-        self.visible_sprites.custom_draw(self.player1)
+        self.visile_sprites.custom_draw(self.player1)
 
 
 class CameraGroup(pygame.sprite.Group):

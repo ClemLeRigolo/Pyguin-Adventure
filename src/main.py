@@ -1,4 +1,5 @@
-import pygame, sys
+import pygame, sys, button
+
 
 sys.path.append('../')
 from settings import *
@@ -12,6 +13,7 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Pyguins Adventure')
 clock = pygame.time.Clock()
+
 
 lvl = 1
 nb = 1
@@ -44,41 +46,35 @@ while True:
             sys.exit()
 
     if etape==0:
-        screen.fill((0, 0, 0))
-        font = pygame.font.SysFont(None, 50)
-        draw_text('Pygwin Adventure', font, (255, 255, 255), screen, 400, 20)
-        font = pygame.font.SysFont(None, 20)
+        display_surface = pygame.display.get_surface()
+        bgn = pygame.image.load("./images/boutons/backgroundAcceuil.png")
+        display_surface.blit(bgn.convert_alpha(), (0, 0))
         mx, my = pygame.mouse.get_pos()
         Pred=False
 
-        buttonC_1 = pygame.Rect(400, 100, 300, 50)
-        if buttonC_1.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
-                etape= 1
-        pygame.draw.rect(screen, (255, 0, 0), buttonC_1)
-        draw_text('Jouer', font, (255, 255, 255), screen, 500, 120)
+        if mx>400:
+            start_img = pygame.image.load('./images/boutons/P.png').convert_alpha()
+        else:
+            start_img = pygame.image.load('./images/boutons/Play.png').convert_alpha()
+        start_button = button.Button(400, 350, start_img, 0.8)
+        if start_button.draw(screen):
+            etape= 1
 
-        buttonC_2 = pygame.Rect(400, 200, 300, 50)
-        if buttonC_2.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
-                etape = 9
-        pygame.draw.rect(screen, (255, 0, 0), buttonC_2)
-        draw_text('Regles du Jeu', font, (255, 255, 255), screen, 500, 200)
+        rules_img = pygame.image.load('./images/boutons/HowToPlay.png').convert_alpha()
+        rules_button = button.Button(400, 450, rules_img, 0.8)
+        if rules_button.draw(screen):
+            etape = 9
 
-        buttonC_3 = pygame.Rect(800, 600, 100, 50)
-        if buttonC_3.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
-                etape = 10
-        pygame.draw.rect(screen, (255, 0, 0), buttonC_3)
-        draw_text('Credits', font, (255, 255, 255), screen,800, 600)
+        credits_img = pygame.image.load('./images/boutons/credits.png').convert_alpha()
+        credits_button = button.Button(800, 630, credits_img, 0.8)
+        if credits_button.draw(screen):
+            etape = 10
 
-        buttonC_4 = pygame.Rect(800, 670, 100, 50)
-        if buttonC_4.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
-                pygame.quit()
-                sys.exit()
-        pygame.draw.rect(screen, (255, 0, 0), buttonC_4)
-        draw_text('Quitter', font, (255, 255, 255), screen, 800, 670)
+        quit_img = pygame.image.load('./images/boutons/quit.png').convert_alpha()
+        quit_button = button.Button(800, 700, quit_img, 0.8)
+        if quit_button.draw(screen):
+            pygame.quit()
+            sys.exit()
 
     if etape==1:
         screen.fill((0, 0, 0))
