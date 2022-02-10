@@ -50,14 +50,14 @@ while True:
         bgn = pygame.image.load("./images/boutons/backgroundAcceuil.png")
         display_surface.blit(bgn.convert_alpha(), (0, 0))
         mx, my = pygame.mouse.get_pos()
-        Pred = False
 
         if 600 > mx > 400 and 420 > my > 350:
             start_img = pygame.image.load('./images/boutons/PlayHover.png').convert_alpha()
         else:
             start_img = pygame.image.load('./images/boutons/Play.png').convert_alpha()
         start_button = button.Button(400, 350, start_img, 0.8)
-        if start_button.draw(screen):
+        if start_button.draw(screen) and Pred:
+            Pred = False
             etape = 1
 
         if 600 > mx > 400 and 520 > my > 450:
@@ -93,6 +93,7 @@ while True:
         nb_play = button.Button(262, 20, nb_play, 1)
         nb_play.draw(screen)
         mx, my = pygame.mouse.get_pos()
+        choix_couleur = False
 
         if 300 > mx > 50 and 728 > my > 668:
             back_img = pygame.image.load('./images/boutons/ReturnHover.png').convert_alpha()
@@ -102,7 +103,6 @@ while True:
         if back_button.draw(screen):
             if Pred and pygame.mouse.get_pressed()[0]:
                 etape = 0
-        Pred = False
 
         if 468 > mx > 168 and 400 > my > 200:
             pu_img = pygame.image.load('./images/boutons/1PlayerHover.png').convert_alpha()
@@ -110,7 +110,8 @@ while True:
             pu_img = pygame.image.load('./images/boutons/1Player.png').convert_alpha()
         pu_button = button.Button(168, 200, pu_img, 1)
         if pu_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 nb = 1
                 etape = 2
 
@@ -120,7 +121,8 @@ while True:
             pu_img = pygame.image.load('./images/boutons/2Players.png').convert_alpha()
         pu_button = button.Button(568, 200, pu_img, 1)
         if pu_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 nb = 2
                 etape = 2
 
@@ -130,7 +132,8 @@ while True:
             pu_img = pygame.image.load('./images/boutons/3Players.png').convert_alpha()
         pu_button = button.Button(168, 450, pu_img, 1)
         if pu_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 nb = 3
                 etape = 2
 
@@ -140,7 +143,8 @@ while True:
             pu_img = pygame.image.load('./images/boutons/4Players.png').convert_alpha()
         pu_button = button.Button(568, 450, pu_img, 1)
         if pu_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 nb = 4
                 etape = 2
 
@@ -159,7 +163,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/Return.png').convert_alpha()
         back_button = button.Button(50, 668, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 1
 
         if 196 > mx > 46 and 400 > my > 250:
@@ -168,7 +173,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/1.png').convert_alpha()
         back_button = button.Button(46, 250, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 1
 
@@ -178,7 +184,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/2.png').convert_alpha()
         back_button = button.Button(241, 250, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 2
 
@@ -188,7 +195,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/3.png').convert_alpha()
         back_button = button.Button(436, 250, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 3
 
@@ -198,7 +206,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/4.png').convert_alpha()
         back_button = button.Button(631, 250, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 4
 
@@ -208,7 +217,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/5.png').convert_alpha()
         back_button = button.Button(826, 250, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 5
 
@@ -218,7 +228,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/6.png').convert_alpha()
         back_button = button.Button(46, 445, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 6
 
@@ -228,7 +239,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/7.png').convert_alpha()
         back_button = button.Button(241, 445, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 7
 
@@ -238,7 +250,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/8.png').convert_alpha()
         back_button = button.Button(436, 445, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 8
 
@@ -248,7 +261,8 @@ while True:
             back_img = pygame.image.load('./images/boutons/9.png').convert_alpha()
         back_button = button.Button(631, 445, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 9
 
@@ -258,11 +272,10 @@ while True:
             back_img = pygame.image.load('./images/boutons/10.png').convert_alpha()
         back_button = button.Button(826, 445, back_img, 1)
         if back_button.draw(screen):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 3
                 lvl = 10
-
-        Pred = False
 
     if etape == 11:
         screen.fill(BG_COLOR)
@@ -330,10 +343,10 @@ while True:
 
     if not pygame.mouse.get_pressed()[0]:
         Pred = True
-        Suiv = True
     else:
         Pred = False
-        Suiv = False
+
+
 
     # drawing logic
     pygame.display.update()

@@ -60,6 +60,11 @@ class Level4:
         self.homard_is = False
         self.game_paused = False
 
+        self.P1 = False
+        self.P2 = False
+        self.P3 = False
+        self.P4 = False
+
         self.c1 = c1
         self.c2 = c2
         self.c3 = c3
@@ -89,25 +94,25 @@ class Level4:
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 1, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 1, self.c1)
                 if col == 'Q':
                     self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites],
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 2, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 2, self.c2)
                 if col == 'R':
                     self.player3 = Player((x, y), [self.visible_sprites, self.active_sprites],
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 3, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 3, self.c3)
                 if col == 'S':
                     self.player4 = Player((x, y), [self.visible_sprites, self.active_sprites],
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 4, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 4, self.c4)
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
                 if col == 'D':
@@ -249,11 +254,25 @@ class Level4:
             self.player2.nuit(self.night)
             self.player3.nuit(self.night)
             self.player4.nuit(self.night)
-            self.active_sprites.update()
+            #self.active_sprites.update()
             self.visible_sprites.custom_draw(self.player1, self.player2, self.player3, self.player4)
             self.visible_sprites.custom_draw(self.player2, self.player1, self.player3, self.player4)
             self.visible_sprites.custom_draw(self.player3, self.player1, self.player2, self.player4)
             self.visible_sprites.custom_draw(self.player4, self.player1, self.player2, self.player3)
+            if self.player1.update() == 5:
+                self.P1 = True
+            if self.player2.update() == 5:
+                self.P2 = True
+            if self.player3.update() == 5:
+                self.P3 = True
+            if self.player4.update() == 5:
+                self.P4 = True
+            if self.P1 and self.P2 and self.P3 and self.P4:
+                self.P1 = False
+                self.P2 = False
+                self.P3 = False
+                self.P4 = False
+                return 5
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)
             bg_button.draw(self.display_surface)
