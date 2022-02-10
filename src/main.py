@@ -340,11 +340,11 @@ while True:
                 else:
                     page += -1
 
-        if 364 > mx > 300 and 464 > my > 400:
+        if 344 > mx > 280 and 464 > my > 400:
             back_img = pygame.image.load('./images/boutons/FlecheDroiteHover.png').convert_alpha()
         else:
             back_img = pygame.image.load('./images/boutons/FlecheDroite.png').convert_alpha()
-        back_button = button.Button(300, 400, back_img, 1)
+        back_button = button.Button(280, 400, back_img, 1)
         if back_button.draw(screen):
             if pygame.mouse.get_pressed()[0] and Pred:
                 Pred = False
