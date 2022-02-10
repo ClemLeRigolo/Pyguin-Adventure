@@ -24,10 +24,8 @@ from bloc_break import Bloc_break
 class Level2:
     def __init__(self, lvl, nb, c1, c2):
 
-        # level setup
         self.display_surface = pygame.display.get_surface()
 
-        # sprite group setup
         self.visible_sprites = CameraGroup()
         self.active_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
@@ -273,11 +271,6 @@ class CameraGroup(pygame.sprite.Group):
         self.display_surface = pygame.display.get_surface()
         self.offset = pygame.math.Vector2(100, 300)
 
-        # center camera setup
-        # self.half_w = self.display_surface.get_size()[0] // 2
-        # self.half_h = self.display_surface.get_size()[1] // 2
-
-        # camera
         cam_left = CAMERA_BORDERS['left']
         cam_top = CAMERA_BORDERS['top']
         cam_width = self.display_surface.get_size()[0] - (cam_left + CAMERA_BORDERS['right'])
@@ -286,12 +279,6 @@ class CameraGroup(pygame.sprite.Group):
         self.camera_rect = pygame.Rect(cam_left, cam_top, cam_width, cam_height)
 
     def custom_draw(self, player1, player2):
-
-        # get the player offset
-        # self.offset.x = player.rect.centerx - self.half_w
-        # self.offset.y = player.rect.centery - self.half_h
-
-        # getting the camera position
 
         if player1.rect.left < self.camera_rect.left:
             if player2.rect.right >= self.camera_rect.right:
@@ -310,7 +297,6 @@ class CameraGroup(pygame.sprite.Group):
 
         self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 512 + CAMERA_BORDERS['left']
 
-        # camera offset
         self.offset = pygame.math.Vector2(
             self.camera_rect.left - CAMERA_BORDERS['left'],
             self.camera_rect.top - CAMERA_BORDERS['top'])
