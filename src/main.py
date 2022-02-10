@@ -27,6 +27,7 @@ choix_couleur = False
 
 font = pygame.font.SysFont(None, 20)
 
+tempsLvl=[[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
 
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
@@ -289,9 +290,18 @@ while True:
             elif nb == 4:
                 level = Level4(lvl - 1, nb - 1, c1, c2, c3, c4)
             first = False
-        val = level.run()
-        if val == 5:
+        temps = level.run()
+        if temps==None:
+            temps=-1
+        if temps == 0:
             first = True
+            etape = 2
+        elif temps > 0:
+            first = True
+            if tempsLvl[nb][lvl]==0 or tempsLvl[nb][lvl]>temps:
+                tempsLvl[nb][lvl]=temps
+            print(tempsLvl[nb][lvl])
+
             etape = 2
 
 

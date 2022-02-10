@@ -51,8 +51,8 @@ class Level1:
         self.temps = pygame.font.SysFont(None, 100)
         self.night = False
         pygame.mixer.init()
-        pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
-        pygame.mixer.music.play(loops=-1)
+        #pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
+        #pygame.mixer.music.play(loops=-1)
         self.bgj = pygame.image.load("./images/map/background1.png")
         self.bgn = pygame.image.load("./images/map/background2.png")
         self.change = False
@@ -164,7 +164,8 @@ class Level1:
                 leave_img = pygame.image.load('./images/boutons/leave.png').convert_alpha()
             leave_button = button.Button(262, 500, leave_img, 1)
             if leave_button.draw(self.display_surface):
-                return 5
+                return 0
+
         else:
             if self.mask.grab and self.time_last_super == 0:
                 self.time_last_super = self.time.real() - self.time_start
@@ -207,7 +208,7 @@ class Level1:
             self.visible_sprites.custom_draw(self.player1)
             if self.player1.update() == 5:
                 pygame.mixer.music.stop()
-                return 5
+                return self.time.real() - self.time_start
 
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)
