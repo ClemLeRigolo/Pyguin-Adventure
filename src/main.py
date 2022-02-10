@@ -16,6 +16,7 @@ clock = pygame.time.Clock()
 
 lvl = 1
 nb = 1
+page = 1
 
 etape = 0
 
@@ -26,6 +27,10 @@ Pred = False
 choix_couleur = False
 
 font = pygame.font.SysFont(None, 20)
+
+pygame.mixer.init()
+pygame.mixer.music.load("sound/accueil_ost.mp3")
+pygame.mixer.music.play(loops=-1)
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -281,51 +286,98 @@ while True:
         screen.fill(BG_COLOR)
         if first:
             if nb == 1:
+                pygame.mixer.music.stop()
                 level = Level1(lvl - 1, nb - 1, c1)
             elif nb == 2:
+                pygame.mixer.music.stop()
                 level = Level2(lvl - 1, nb - 1, c1, c2)
             elif nb == 3:
+                pygame.mixer.music.stop()
                 level = Level3(lvl - 1, nb - 1, c1, c2, c3)
             elif nb == 4:
+                pygame.mixer.music.stop()
                 level = Level4(lvl - 1, nb - 1, c1, c2, c3, c4)
             first = False
         val = level.run()
         if val == 5:
+            pygame.mixer.music.load("sound/accueil_ost.mp3")
+            pygame.mixer.music.play(loops=-1)
             first = True
             etape = 2
 
-
     if etape == 9:
-        screen.fill((0, 0, 0))
-        font = pygame.font.SysFont(None, 50)
-        draw_text('Regles du Jeu', font, (255, 255, 255), screen, 400, 20)
-        font = pygame.font.SysFont(None, 20)
-        draw_text('Le but est de ....', font, (255, 255, 255), screen, 300, 100)
-        mx, my = pygame.mouse.get_pos()
-        Pred = False
+        if page == 1:
+            bg = pygame.image.load('./images/ihm/HowToPlay1.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
+        if page == 2:
+            bg = pygame.image.load('./images/ihm/HowToPlay2.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
+        if page == 3:
+            bg = pygame.image.load('./images/ihm/HowToPlay3.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
+        if page == 4:
+            bg = pygame.image.load('./images/ihm/HowToPlay4.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
 
-        buttonR_1 = pygame.Rect(50, 50, 100, 50)
-        if buttonR_1.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
+        if 104 > mx > 40 and 464 > my > 400:
+            back_img = pygame.image.load('./images/boutons/FlecheGaucheHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/FlecheGauche.png').convert_alpha()
+        back_button = button.Button(40, 400, back_img, 1)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
+                if page == 1:
+                    page = 4
+                else:
+                    page += -1
+
+        if 364 > mx > 300 and 464 > my > 400:
+            back_img = pygame.image.load('./images/boutons/FlecheDroiteHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/FlecheDroite.png').convert_alpha()
+        back_button = button.Button(300, 400, back_img, 1)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
+                if page == 4:
+                    page = 1
+                else:
+                    page += 1
+
+        if 300 > mx > 50 and 760 > my > 700:
+            back_img = pygame.image.load('./images/boutons/ReturnHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/Return.png').convert_alpha()
+        back_button = button.Button(50, 700, back_img, 1)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 0
-        pygame.draw.rect(screen, (255, 0, 0), buttonR_1)
-        draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
     if etape == 10:
-        screen.fill((0, 0, 0))
-        font = pygame.font.SysFont(None, 50)
-        draw_text('Credits', font, (255, 255, 255), screen, 400, 20)
-        font = pygame.font.SysFont(None, 20)
-        draw_text('Réalisé grace à ...', font, (255, 255, 255), screen, 300, 100)
+        bg = pygame.image.load('./images/ihm/CreditsPage.png').convert_alpha()
+        bg = button.Button(0, 0, bg, 1)
+        bg.draw(screen)
         mx, my = pygame.mouse.get_pos()
-        Pred = False
 
-        buttonS_1 = pygame.Rect(50, 50, 100, 50)
-        if buttonS_1.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
+        if 300 > mx > 50 and 728 > my > 668:
+            back_img = pygame.image.load('./images/boutons/ReturnHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/Return.png').convert_alpha()
+        back_button = button.Button(50, 668, back_img, 1)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 0
-        pygame.draw.rect(screen, (255, 0, 0), buttonS_1)
-        draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
     if etape == 3:
         if not choix_couleur:
