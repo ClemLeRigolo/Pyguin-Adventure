@@ -1,13 +1,13 @@
 LEVEL_MAP = [
 [[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-'B                             BQB',
-'B          5                   BB',
+'B                               B',
+'B          5                    B',
 'BF                              B',
 'B2                              B',
-'B                               B',
-'B  231                        25B',
-'B           1                 DIB',
+'B                          25543B',
+'B  231                     D I  B',
+'B           1                   B',
 'B    P      B1       M      2545B',
 'B434444551  BB35443544354453BBBBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']],
@@ -77,17 +77,25 @@ LEVEL_MAP = [
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
 [
-'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-'B PQR            B           F               B',
-'B345345345  34535B        3453453            B',
-'BBBBBBBBBB  BBBBBB                           B',
-'B    H      BBBBBB                           B',
-'B        X       B                           B',
-'BBBBBBBBBBBBBBBB B  M                   24535B',
-'BBBBBBBBBBBBBBBB BBBBBBBB               D I  B',
-'B  F         CCC                             B',
-'B345345345345345345345345345345  345345345345B',
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'
+'B                                B'
+'B                F               B'
+'B                                B'
+'B                                B'
+'B                                B'
+'B                                B'
+'B             3453453            B'
+'B                                B'
+'B PQR                         CCCB'
+'B345345     345345345345      CIDB'
+'BBBBBBB1                      2BBB'
+'BBBBBBBB1                    2BBBB'
+'BBBBBBBBB1                  2BBBBB'
+'BBBBBBBBBB1M              H2BBBBBB'
+'BBBBBBBBBBB453453    453453BBBBBBB'
+'BBBBBBBBBBBBBBBBB    BBBBBBBBBBBBB'
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
 ],[[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
 'B PQRS           B           F               B',
@@ -114,18 +122,25 @@ LEVEL_MAP = [
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
 [
-'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-'B                               B',
-'B         555                   B',
-'BF                              B',
-'B2                              B',
-'B                               B',
-'B  231                        25B',
-'B           1                 DIB',
-'B    PQRS   B1              2545B',
-'B4344445541 BB35443544354453BBBBB',
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'
+'B                                B'
+'B                F               B'
+'B                                B'
+'B                                B'
+'B                                B'
+'B                                B'
+'B             3453453            B'
+'B                                B'
+'B PQR                         CCCB'
+'B345345     345345345345      CIDB'
+'BBBBBBB1                      2BBB'
+'BBBBBBBB1                    2BBBB'
+'BBBBBBBBB1                  2BBBBB'
+'BBBBBBBBBB1M              H2BBBBBB'
+'BBBBBBBBBBB453453    453453BBBBBBB'
+'BBBBBBBBBBBBBBBBB    BBBBBBBBBBBBB'
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
 ]
 ]
 

@@ -18,6 +18,7 @@ from homard import Homard
 from bloc_break import Bloc_break
 
 
+
 class Level2:
     def __init__(self, lvl, nb):
 
@@ -51,6 +52,8 @@ class Level2:
         self.change = False
         self.mask_is = False
         self.homard_is = False
+        self.P1 = False
+        self.P2 = False
 
         self.setup_level(lvl, nb)
 
@@ -156,10 +159,17 @@ class Level2:
                 self.time_last = self.time.real() - self.time_start
         self.player1.nuit(self.night)
         self.player2.nuit(self.night)
-        self.active_sprites.update()
+        #self.active_sprites.update()
         self.visible_sprites.custom_draw(self.player1, self.player2)
         self.visible_sprites.custom_draw(self.player2, self.player1)
-
+        if self.player1.update()==5:
+            self.P1=True
+        if self.player2.update()==5:
+            self.P2=True
+        if self.P1 and self.P2:
+            self.P1 = False
+            self.P2 = False
+            return 5
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):

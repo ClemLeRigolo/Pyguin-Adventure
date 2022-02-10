@@ -286,16 +286,14 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.door_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("door")
                 for sprite2 in self.fish_sprites.sprites():
                     if sprite2.grab == True:
-                        print("Open")
                         self.collision_sprites.remove(sprite1)
 
         for sprite1 in self.igloo_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
+                print("colliderect return")
                 return 5
-                print("igloo")
 
         for sprite1 in self.collision_sprites.sprites():
             for sprite2 in self.active_sprite.sprites():
@@ -312,6 +310,7 @@ class Player(pygame.sprite.Sprite):
                             self.rect.left = sprite2.rect.right
                         if self.direction.x > 0:
                             self.rect.right = sprite2.rect.left
+
 
     def vertical_collisions(self):
         if self.homard:
@@ -382,10 +381,8 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.door_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("door")
                 for sprite2 in self.fish_sprites.sprites():
                     if sprite2.grab == True:
-                        print("Open")
                         self.collision_sprites.remove(sprite1)
 
         for sprite1 in self.collision_sprites.sprites():
@@ -441,13 +438,17 @@ class Player(pygame.sprite.Sprite):
         if self.on_floor:
             self.last_pos_on_flor[0] = self.rect.left
             self.last_pos_on_flor[1] = self.rect.top
-        self.horizontal_collisions()
+        if self.horizontal_collisions() == 5:
+            print("rreturn LE 2")
+            return 5
         self.apply_gravity()
         self.vertical_collisions()
         self.update_pos()
         self.image = self.get_image(0, 0)
         self.image.set_colorkey([0, 8, 255])
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
+        return 0
+
 
     def get_image(self, x, y):
         image = pygame.Surface([64, 64])

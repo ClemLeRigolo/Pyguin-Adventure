@@ -174,6 +174,8 @@ while True:
                 level = Level4(lvl - 1, nb - 1)
             first = False
         if level.run()==5:
+            print("main HERE return")
+            first=True
             etape=2
 
 

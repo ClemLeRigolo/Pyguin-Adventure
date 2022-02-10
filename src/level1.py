@@ -140,8 +140,10 @@ class Level1:
                 self.night = True
                 self.time_last = self.time.real() - self.time_start
         self.player1.nuit(self.night)
-        self.active_sprites.update()
+        #self.active_sprites.update()
         self.visible_sprites.custom_draw(self.player1)
+        if self.player1.update()==5:
+            return 5
 
 
 class CameraGroup(pygame.sprite.Group):
