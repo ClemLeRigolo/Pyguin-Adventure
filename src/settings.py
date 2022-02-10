@@ -10,8 +10,8 @@ LEVEL_MAP = [
 'B           1                 DIB',
 'B    P      B1       M      2545B',
 'B434444551  BB35443544354453BBBBB',
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']],
-[[
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
+[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
 'B                               B',
 'B                               B',
@@ -24,6 +24,20 @@ LEVEL_MAP = [
 'BBBBBB2M                  2BBBBBB',
 'BBBBBBB4534           4354BBBBBBB',
 'BBBBBBBBBBB           BBBBBBBBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
+],
+[[
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+'B                               B',
+'B          5                    B',
+'BF                              B',
+'B2  X        XXXX               B',
+'B   X                      25345B',
+'B  231                   D   I  B',
+'B           1    X              B',
+'B    PQ     B1      M X   253345B',
+'B434444551  BB354435443544BBBBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
 [
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
