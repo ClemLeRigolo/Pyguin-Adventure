@@ -106,9 +106,11 @@ class Color_selec:
                     if self.click and self.p1:
                         self.p1 = False
                         self.c1 = "Noir"
+                        print("ici")
                     elif self.click:
                         self.p1 = True
                         self.c1 = "BleuClair"
+                        print("laba")
                         self.p1_pos = (cyan.x, cyan.y)
                 elif (not self.p2 and self.c1 != "BleuClair" and self.c3 != "BleuClair" and self.c4 != "BleuClair") or self.c2 == "BleuClair":
                     if self.click and self.p2:
@@ -434,6 +436,15 @@ class Color_selec:
             self.p4 = False
         else:
             self.p1 = self.p1
+
+        if self.c1 == "Noir":
+            self.p1 = False
+        if self.c2 == "Noir":
+            self.p2 = False
+        if self.c3 == "Noir":
+            self.p3 = False
+        if self.c4 == "Noir":
+            self.p4 = False
 
         if self.p1:
             back_img = pygame.image.load('./images/Pixel arts/Autres/player1.png').convert_alpha()
