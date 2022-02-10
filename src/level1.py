@@ -21,7 +21,7 @@ from timer import Timer
 
 
 class Level1:
-    def __init__(self, lvl, nb):
+    def __init__(self, lvl, nb, c1):
 
         # level setup
         self.display_surface = pygame.display.get_surface()
@@ -60,6 +60,8 @@ class Level1:
         self.homard_is = False
         self.game_paused = False
 
+        self.c1 = c1
+
         self.setup_level(lvl, nb)
 
     def setup_level(self, lvl, nb):
@@ -84,7 +86,7 @@ class Level1:
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 1, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 1, self.c1)
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
                 if col == 'D':

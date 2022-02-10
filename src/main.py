@@ -6,6 +6,7 @@ from level1 import Level1
 from level2 import Level2
 from level3 import Level3
 from level4 import Level4
+from color_selec import Color_selec
 
 # Pygame setup
 pygame.init()
@@ -21,6 +22,8 @@ etape = 0
 first = True
 
 Pred = False
+
+choix_couleur = False
 
 font = pygame.font.SysFont(None, 20)
 
@@ -83,7 +86,9 @@ while True:
             sys.exit()
 
     if etape == 1:
-        screen.fill((168, 211, 228))
+        bg = pygame.image.load('./images/map/backgroundIHM.png').convert_alpha()
+        bg = button.Button(0, 0, bg, 1)
+        bg.draw(screen)
         nb_play = pygame.image.load('./images/boutons/numberOfPayers.png').convert_alpha()
         nb_play = button.Button(262, 20, nb_play, 1)
         nb_play.draw(screen)
@@ -140,7 +145,9 @@ while True:
                 etape = 2
 
     if etape == 2:
-        screen.fill((168, 211, 228))
+        bg = pygame.image.load('./images/map/backgroundIHM.png').convert_alpha()
+        bg = button.Button(0, 0, bg, 1)
+        bg.draw(screen)
         selec_lvl = pygame.image.load('./images/boutons/selectALevel.png').convert_alpha()
         selec_lvl = button.Button(262, 20, selec_lvl, 1)
         selec_lvl.draw(screen)
@@ -257,17 +264,17 @@ while True:
 
         Pred = False
 
-    if etape == 3:
+    if etape == 11:
         screen.fill(BG_COLOR)
         if first:
             if nb == 1:
-                level = Level1(lvl - 1, nb - 1)
+                level = Level1(lvl - 1, nb - 1, c1)
             elif nb == 2:
-                level = Level2(lvl - 1, nb - 1)
+                level = Level2(lvl - 1, nb - 1, c1, c2)
             elif nb == 3:
-                level = Level3(lvl - 1, nb - 1)
+                level = Level3(lvl - 1, nb - 1, c1, c2, c3)
             elif nb == 4:
-                level = Level4(lvl - 1, nb - 1)
+                level = Level4(lvl - 1, nb - 1, c1, c2, c3, c4)
             first = False
         if level.run() == 5:
             etape = 2
@@ -304,10 +311,27 @@ while True:
         pygame.draw.rect(screen, (255, 0, 0), buttonS_1)
         draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
+    if etape == 3:
+        if not choix_couleur:
+            choix_couleur = True
+            color = Color_selec(nb-1)
+        val = color.run()
+        if val == ("Noir", "Noir", "Noir", "Noir"):
+            etape = 2
+        elif val != None:
+            c1 = val[0]
+            c2 = val[1]
+            c3 = val[2]
+            c4 = val[3]
+            etape = 11
+        Pred = False
+
     if not pygame.mouse.get_pressed()[0]:
         Pred = True
+        Suiv = True
     else:
         Pred = False
+        Suiv = False
 
     # drawing logic
     pygame.display.update()

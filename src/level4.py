@@ -21,7 +21,7 @@ from bloc_break import Bloc_break
 
 
 class Level4:
-    def __init__(self, lvl, nb):
+    def __init__(self, lvl, nb, c1, c2, c3, c4):
 
         # level setup
         self.display_surface = pygame.display.get_surface()
@@ -59,6 +59,11 @@ class Level4:
         self.mask_is = False
         self.homard_is = False
         self.game_paused = False
+
+        self.c1 = c1
+        self.c2 = c2
+        self.c3 = c3
+        self.c4 = c4
 
         self.setup_level(lvl, nb)
 

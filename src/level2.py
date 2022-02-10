@@ -21,7 +21,7 @@ from bloc_break import Bloc_break
 
 
 class Level2:
-    def __init__(self, lvl, nb):
+    def __init__(self, lvl, nb, c1, c2):
 
         # level setup
         self.display_surface = pygame.display.get_surface()
@@ -60,6 +60,9 @@ class Level2:
         self.homard_is = False
         self.game_paused = False
 
+        self.c1 = c1
+        self.c2 = c2
+
         self.setup_level(lvl, nb)
 
     def setup_level(self, lvl, nb):
@@ -84,13 +87,13 @@ class Level2:
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 1, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 1, self.c1)
                 if col == 'Q':
                     self.player2 = Player((x, y), [self.visible_sprites, self.active_sprites],
                                           [self.active_sprites, self.collision_sprites, self.fish_sprites,
                                            self.visible_sprites, self.door_sprites, self.igloo_sprites,
                                            self.limit_sprites, self.mask_sprites, self.bloc_sprites,
-                                           self.homard_sprites, self.bloc_break_sprites], 2, "Gris")
+                                           self.homard_sprites, self.bloc_break_sprites], 2, self.c2)
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
                 if col == 'D':
