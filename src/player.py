@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if self.demon:
-            if self.nb == 1:
+            if self.nb == 2:
                 if keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
                     self.direction.x = 1
                 elif keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
@@ -94,7 +94,7 @@ class Player(pygame.sprite.Sprite):
                     if self.time != 0:
                         self.time = 0
 
-            if self.nb == 2:
+            if self.nb == 1:
                 if keys[pygame.K_q] and not keys[pygame.K_d]:
                     self.direction.x = 1
                 elif keys[pygame.K_d] and not keys[pygame.K_q]:
@@ -146,7 +146,7 @@ class Player(pygame.sprite.Sprite):
                     if self.time != 0:
                         self.time = 0
         else:
-            if self.nb == 1:
+            if self.nb == 2:
                 if keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
                     self.direction.x = 1
                 elif keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
@@ -163,7 +163,7 @@ class Player(pygame.sprite.Sprite):
                     self.glissade = False
                     if self.time != 0:
                         self.time = 0
-            elif self.nb == 2:
+            elif self.nb == 1:
                 if keys[pygame.K_d] and not keys[pygame.K_q]:
                     self.direction.x = 1
                 elif keys[pygame.K_q] and not keys[pygame.K_d]:
