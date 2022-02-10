@@ -33,7 +33,7 @@ class Level:
 		self.time_last = 0
 		self.night = False
 		pygame.mixer.init()
-		#music = pygame.mixer.music.load("images\Pixel arts\Pyguin_adventure_ost.mp3")
+		#music = pygame.mixer.music.load("images/Pixel arts/Pyguin_adventure_ost.mp3")
 		#pygame.mixer.music.play(loops=-1)
 
 		self.setup_level(lvl,nb)
@@ -91,7 +91,7 @@ class CameraGroup(pygame.sprite.Group):
 		self.display_surface = pygame.display.get_surface()
 		self.offset = pygame.math.Vector2(100,300)
 
-		# center camera setup 
+		# center camera setup
 		# self.half_w = self.display_surface.get_size()[0] // 2
 		# self.half_h = self.display_surface.get_size()[1] // 2
 
@@ -105,7 +105,7 @@ class CameraGroup(pygame.sprite.Group):
 
 	def custom_draw(self,player1,player2):
 
-		# get the player offset 
+		# get the player offset
 		# self.offset.x = player.rect.centerx - self.half_w
 		# self.offset.y = player.rect.centery - self.half_h
 
@@ -128,7 +128,7 @@ class CameraGroup(pygame.sprite.Group):
 
 		self.camera_rect.left = (player2.rect.left + player1.rect.left) / 2 - 512 + CAMERA_BORDERS['left']
 
-		# camera offset 
+		# camera offset
 		self.offset = pygame.math.Vector2(
 			self.camera_rect.left - CAMERA_BORDERS['left'],
 			self.camera_rect.top - CAMERA_BORDERS['top'])

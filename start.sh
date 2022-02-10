@@ -1,4 +1,3 @@
-#!/bin/sh
-
-python3 "$(dirname "$(readlink -f "$0")")/src/main.py"
-
+#!/bin/bash
+cd src
+python3 "$(dirname "$(readlink -f "$0")")/main.py"

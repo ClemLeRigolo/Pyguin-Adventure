@@ -283,7 +283,6 @@ while True:
                 lvl = 10
 
     if etape == 11:
-        screen.fill(BG_COLOR)
         if first:
             if nb == 1:
                 pygame.mixer.music.stop()
