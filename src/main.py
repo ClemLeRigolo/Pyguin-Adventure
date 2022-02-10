@@ -31,6 +31,8 @@ font = pygame.font.SysFont(None, 20)
 
 tempsLvl=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
 
+fichierLoc="/users/info/etu-s3/barramat/gamejam/gamejam/src/test.txt"
+
 openned=False
 openned2=False
 
@@ -39,12 +41,12 @@ CT = pygame.font.SysFont(None, 25)
 try:
 
     """
-    f = open("test.txt", 'w', encoding='utf-8')
+    f = open(fichierLoc, 'w', encoding='utf-8')
     x = f.write(str(tempsLvl))
     f.close()
     """
 
-    f = open("test.txt",'r',encoding = 'utf-8')
+    f = open(fichierLoc,'r',encoding = 'utf-8')
     print("open success")
     x=f.readline()
     print("read success")
@@ -398,7 +400,7 @@ while True:
             if tempsLvl[(nb-1)*10+lvl-1]==0 or tempsLvl[(nb-1)*10+lvl-1]>temps:
                 print("le Temps QUI DOIT PASSER PAR LA : " + str(temps))
                 try:
-                    f = open("test.txt", 'r', encoding='utf-8')
+                    f = open(fichierLoc, 'r', encoding='utf-8')
                     x = f.readline()
                     y = x.split(",")
                     for i in range(40):
@@ -420,7 +422,7 @@ while True:
                         print("Le tableau ressemble a ca : "+str(tempsLvl))
                         print("Je rentre la valeur "+str(temps)+" dans la case "+str((nb-1)*10+lvl-1))
                         tempsLvl[(nb-1)*10+lvl-1] = temps
-                        f = open("test.txt", 'w', encoding='utf-8')
+                        f = open(fichierLoc, 'w', encoding='utf-8')
                         x = f.write(str(tempsLvl))
                         f.close()
 
