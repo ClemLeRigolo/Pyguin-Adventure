@@ -62,9 +62,12 @@ class Level1:
 
         self.c1 = c1
 
-        self.setup_level(lvl, nb)
+        self.nb_fish = self.setup_level(lvl, nb)
+
+        self.player1.set_fish(self.nb_fish)
 
     def setup_level(self, lvl, nb):
+        fish = 0
         for row_index, row in enumerate(LEVEL_MAP[nb][lvl]):
             for col_index, col in enumerate(row):
                 x = col_index * TILE_SIZE
@@ -89,6 +92,7 @@ class Level1:
                                            self.homard_sprites, self.bloc_break_sprites], 1, self.c1)
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
+                    fish += 1
                 if col == 'D':
                     self.door = Door((x, y), [self.visible_sprites, self.collision_sprites, self.door_sprites])
                 if col == 'I':
@@ -104,12 +108,12 @@ class Level1:
                     self.homard = Homard((x, y), [self.visible_sprites, self.homard_sprites])
                     self.homard_is = True
                 if col == 'C':
-                    self.bloc_break = Bloc_break((x, y), [self.visible_sprites, self.bloc_break_sprites,
-                                                              self.collision_sprites])
+                    self.bloc_break = Bloc_break((x, y), [self.visible_sprites, self.bloc_break_sprites, self.collision_sprites])
         if not self.mask_is:
             self.mask = Mask((-200, -300), [self.visible_sprites, self.mask_sprites])
         if not self.homard_is:
             self.homard = Homard((-200, -300), [self.visible_sprites, self.homard_sprites])
+        return fish
 
     def run(self):
         # run the entire game (level)
@@ -160,7 +164,7 @@ class Level1:
                 leave_img = pygame.image.load('./images/boutons/leave.png').convert_alpha()
             leave_button = button.Button(262, 500, leave_img, 1)
             if leave_button.draw(self.display_surface):
-                print("leave")
+                return 5
         else:
             if self.mask.grab and self.time_last_super == 0:
                 self.time_last_super = self.time.real() - self.time_start
@@ -199,10 +203,16 @@ class Level1:
                     self.night = True
                     self.time_last = self.time.real() - self.time_start
             self.player1.nuit(self.night)
-            self.active_sprites.update()
+            # self.active_sprites.update()
             self.visible_sprites.custom_draw(self.player1)
+            if self.player1.update() == 5:
+                pygame.mixer.music.stop()
+                return 5
+
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)
+            bg_button.draw(self.display_surface)
+            bg_button = button.Button(800, 0, bg_time, 1)
             bg_button.draw(self.display_surface)
             self.minute = (self.time.real() - self.time_start) // 60
             self.seconde = ((self.time.real() - self.time_start) % 60) // 1
@@ -214,6 +224,16 @@ class Level1:
                 self.display_surface.blit(img, (40, 20))
             else:
                 self.display_surface.blit(img, (20, 20))
+            fish_catch = 0
+            for sprite in self.fish_sprites.sprites():
+                if sprite.grab:
+                    fish_catch += 1
+            self.player1.set_grab(fish_catch)
+            img = self.temps.render(str(fish_catch) + '/' + str(self.nb_fish), True, (0, 0, 0))
+            self.display_surface.blit(img, (820, 20))
+            bg_time = pygame.image.load('./images/Pixel arts/Autres/PoissonPng.png').convert_alpha()
+            bg_button = button.Button(950, 20, bg_time, 2)
+            bg_button.draw(self.display_surface)
 
 
 class CameraGroup(pygame.sprite.Group):

@@ -289,8 +289,11 @@ while True:
             elif nb == 4:
                 level = Level4(lvl - 1, nb - 1, c1, c2, c3, c4)
             first = False
-        if level.run() == 5:
+        val = level.run()
+        if val == 5:
+            first = True
             etape = 2
+
 
     if etape == 9:
         screen.fill((0, 0, 0))

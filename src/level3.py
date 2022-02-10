@@ -60,13 +60,22 @@ class Level3:
         self.homard_is = False
         self.game_paused = False
 
+        self.P1 = False
+        self.P2 = False
+        self.P3 = False
+
         self.c1 = c1
         self.c2 = c2
         self.c3 = c3
 
-        self.setup_level(lvl, nb)
+        self.nb_fish = self.setup_level(lvl, nb)
+
+        self.player1.set_fish(self.nb_fish)
+        self.player2.set_fish(self.nb_fish)
+        self.player3.set_fish(self.nb_fish)
 
     def setup_level(self, lvl, nb):
+        fish = 0
         for row_index, row in enumerate(LEVEL_MAP[nb][lvl]):
             for col_index, col in enumerate(row):
                 x = col_index * TILE_SIZE
@@ -103,6 +112,7 @@ class Level3:
                                            self.homard_sprites, self.bloc_break_sprites], 3, self.c3)
                 if col == 'F':
                     self.fish = Fish((x, y), [self.visible_sprites, self.collision_sprites, self.fish_sprites])
+                    fish += 1
                 if col == 'D':
                     self.door = Door((x, y), [self.visible_sprites, self.collision_sprites, self.door_sprites])
                 if col == 'I':
@@ -124,6 +134,7 @@ class Level3:
             self.mask = Mask((-200, -300), [self.visible_sprites, self.mask_sprites])
         if not self.homard_is:
             self.homard = Homard((-200, -300), [self.visible_sprites, self.homard_sprites])
+        return fish
 
     def run(self):
         # run the entire game (level)
@@ -233,12 +244,26 @@ class Level3:
             self.player1.nuit(self.night)
             self.player2.nuit(self.night)
             self.player3.nuit(self.night)
-            self.active_sprites.update()
+            #self.active_sprites.update()
             self.visible_sprites.custom_draw(self.player1, self.player2, self.player3)
             self.visible_sprites.custom_draw(self.player2, self.player1, self.player3)
             self.visible_sprites.custom_draw(self.player3, self.player1, self.player2)
+            if self.player1.update() == 5:
+                self.P1 = True
+            if self.player2.update() == 5:
+                self.P2 = True
+            if self.player3.update() == 5:
+                self.P3 = True
+            if self.P1 and self.P2 and self.P3:
+                pygame.mixer.music.stop()
+                self.P1 = False
+                self.P2 = False
+                self.P3 = False
+                return 5
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)
+            bg_button.draw(self.display_surface)
+            bg_button = button.Button(800, 0, bg_time, 1)
             bg_button.draw(self.display_surface)
             self.minute = (self.time.real() - self.time_start) // 60
             self.seconde = ((self.time.real() - self.time_start) % 60) // 1
@@ -250,7 +275,18 @@ class Level3:
                 self.display_surface.blit(img, (40, 20))
             else:
                 self.display_surface.blit(img, (20, 20))
-
+            fish_catch = 0
+            for sprite in self.fish_sprites.sprites():
+                if sprite.grab:
+                    fish_catch += 1
+            self.player1.set_grab(fish_catch)
+            self.player2.set_grab(fish_catch)
+            self.player3.set_grab(fish_catch)
+            img = self.temps.render(str(fish_catch) + '/' + str(self.nb_fish), True, (0, 0, 0))
+            self.display_surface.blit(img, (820, 20))
+            bg_time = pygame.image.load('./images/Pixel arts/Autres/PoissonPng.png').convert_alpha()
+            bg_button = button.Button(950, 20, bg_time, 2)
+            bg_button.draw(self.display_surface)
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):

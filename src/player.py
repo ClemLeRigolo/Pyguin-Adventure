@@ -36,6 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.HOM_S_R_PING_IMG = self.colors.table[21]
         self.HOM_D_L_PING_IMG = self.colors.table[22]
         self.HOM_D_R_PING_IMG = self.colors.table[23]
+        self.FINISH = self.colors.table[24]
 
         # player movement
         self.nb = nb
@@ -64,9 +65,12 @@ class Player(pygame.sprite.Sprite):
         self.possibleD = True
         self.possibleG = True
         self.contre_bloc = False
+        self.move = True
         self.last_pos_on_flor = [self.rect.left, self.rect.top]
         self.time_in_pos = 0
         self.last_pos = self.sprite_sheet
+        self.nb_fish = 0
+        self.nb_grab = 0
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -286,16 +290,18 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.door_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("door")
-                for sprite2 in self.fish_sprites.sprites():
-                    if sprite2.grab == True:
-                        print("Open")
-                        self.collision_sprites.remove(sprite1)
+                if self.nb_grab == self.nb_fish:
+                    print("ui")
+                    self.collision_sprites.remove(sprite1)
 
         for sprite1 in self.igloo_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                return 5
-                print("igloo")
+                if self.nb_fish == self.nb_grab:
+                    self.move = False
+                    self.rect.left = sprite1.rect.left + 64
+                    self.rect.bottom = sprite1.rect.bottom
+                    self.visible_sprites.remove(self)
+                    return 5
 
         for sprite1 in self.collision_sprites.sprites():
             for sprite2 in self.active_sprite.sprites():
@@ -382,11 +388,9 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.door_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("door")
-                for sprite2 in self.fish_sprites.sprites():
-                    if sprite2.grab == True:
-                        print("Open")
-                        self.collision_sprites.remove(sprite1)
+                if self.nb_grab == self.nb_fish:
+                    print("ui")
+                    self.collision_sprites.remove(sprite1)
 
         for sprite1 in self.collision_sprites.sprites():
             for sprite2 in self.active_sprite.sprites():
@@ -418,36 +422,40 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.input()
-        if self.direction.x < 0:
-            if self.possibleG:
-                if self.glissade:
-                    if (self.speedG / 1.05 ** self.time) > 1:
-                        self.rect.x += self.direction.x * (self.speedG / 1.05 ** self.time)
-                        self.time += 1
+        if self.move:
+            if self.direction.x < 0:
+                if self.possibleG:
+                    if self.glissade:
+                        if (self.speedG / 1.05 ** self.time) > 1:
+                            self.rect.x += self.direction.x * (self.speedG / 1.05 ** self.time)
+                            self.time += 1
+                            self.possibleD = True
+                    else:
+                        self.rect.x += self.direction.x * self.speed
                         self.possibleD = True
-                else:
-                    self.rect.x += self.direction.x * self.speed
-                    self.possibleD = True
-        if self.direction.x > 0:
-            if self.possibleD:
-                if self.glissade:
-                    if (self.speedG / 1.05 ** self.time) > 1:
-                        self.rect.x += self.direction.x * (self.speedG / 1.05 ** self.time)
-                        self.time += 1
+            if self.direction.x > 0:
+                if self.possibleD:
+                    if self.glissade:
+                        if (self.speedG / 1.05 ** self.time) > 1:
+                            self.rect.x += self.direction.x * (self.speedG / 1.05 ** self.time)
+                            self.time += 1
+                            self.possibleG = True
+                    else:
+                        self.rect.x += self.direction.x * self.speed
                         self.possibleG = True
-                else:
-                    self.rect.x += self.direction.x * self.speed
-                    self.possibleG = True
-        if self.on_floor:
-            self.last_pos_on_flor[0] = self.rect.left
-            self.last_pos_on_flor[1] = self.rect.top
-        self.horizontal_collisions()
+            if self.on_floor:
+                self.last_pos_on_flor[0] = self.rect.left
+                self.last_pos_on_flor[1] = self.rect.top
+        if self.horizontal_collisions() == 5:
+            print("rreturn LE 2")
+            return 5
         self.apply_gravity()
         self.vertical_collisions()
         self.update_pos()
         self.image = self.get_image(0, 0)
         self.image.set_colorkey([0, 8, 255])
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
+        return 0
 
     def get_image(self, x, y):
         image = pygame.Surface([64, 64])
@@ -474,6 +482,12 @@ class Player(pygame.sprite.Sprite):
             self.speedG = self.speedG / 1.3
             self.gravity = self.gravity / 0.6
 
+    def set_fish(self, nb):
+        self.nb_fish = nb
+
+    def set_grab(self, nb):
+        self.nb_grab = nb
+
     def set_homard(self, val):
         self.demon = False
         if val:
@@ -482,160 +496,164 @@ class Player(pygame.sprite.Sprite):
             self.homard = False
 
     def update_pos(self):
-        if self.last_pos == self.sprite_sheet:
-            self.time_in_pos += 1
-            if self.time_in_pos == 20:
+        if self.move == False:
+            print("fini")
+            self.sprite_sheet = self.FINISH
+        else:
+            if self.last_pos == self.sprite_sheet:
+                self.time_in_pos += 1
+                if self.time_in_pos == 20:
+                    self.time_in_pos = 0
+            else:
                 self.time_in_pos = 0
-        else:
-            self.time_in_pos = 0
-        if self.super:
-            if self.glissade and self.direction.x != 0:
-                if self.direction.x == -1:
-                    self.sprite_sheet = self.SUP_D_L_PING_IMG
-                elif self.direction.x == 1:
-                    self.sprite_sheet = self.SUP_D_R_PING_IMG
-            else:
-                if self.direction.y > 1 or self.direction.y < 0:
+            if self.super:
+                if self.glissade and self.direction.x != 0:
                     if self.direction.x == -1:
-                        self.sprite_sheet = self.SUP_S_L_PING_IMG
+                        self.sprite_sheet = self.SUP_D_L_PING_IMG
                     elif self.direction.x == 1:
-                        self.sprite_sheet = self.SUP_S_R_PING_IMG
-                    else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
-                            self.sprite_sheet = self.SUP_S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.SUP_S_R_PING_IMG
+                        self.sprite_sheet = self.SUP_D_R_PING_IMG
                 else:
-                    if self.direction.x == -1:
-                        if 0 <= self.time_in_pos < 10:
+                    if self.direction.y > 1 or self.direction.y < 0:
+                        if self.direction.x == -1:
                             self.sprite_sheet = self.SUP_S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.SUP_L_PING_IMG
-                    elif self.direction.x == 1:
-                        if 0 <= self.time_in_pos < 10:
+                        elif self.direction.x == 1:
                             self.sprite_sheet = self.SUP_S_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.SUP_R_PING_IMG
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
+                                self.sprite_sheet = self.SUP_S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.SUP_S_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
-                            self.sprite_sheet = self.SUP_L_PING_IMG
+                        if self.direction.x == -1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.SUP_S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.SUP_L_PING_IMG
+                        elif self.direction.x == 1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.SUP_S_R_PING_IMG
+                            else:
+                                self.sprite_sheet = self.SUP_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.SUP_R_PING_IMG
-        elif self.homard:
-            if self.glissade and self.direction.x != 0:
-                if self.direction.x == -1:
-                    self.sprite_sheet = self.HOM_D_L_PING_IMG
-                elif self.direction.x == 1:
-                    self.sprite_sheet = self.HOM_D_R_PING_IMG
-            else:
-                if self.direction.y > 1 or self.direction.y < 0:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG:
+                                self.sprite_sheet = self.SUP_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.SUP_R_PING_IMG
+            elif self.homard:
+                if self.glissade and self.direction.x != 0:
                     if self.direction.x == -1:
-                        self.sprite_sheet = self.HOM_S_L_PING_IMG
+                        self.sprite_sheet = self.HOM_D_L_PING_IMG
                     elif self.direction.x == 1:
-                        self.sprite_sheet = self.HOM_S_R_PING_IMG
-                    else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
-                                or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
-                                or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
-                                or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
-                            self.sprite_sheet = self.HOM_S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.HOM_S_R_PING_IMG
+                        self.sprite_sheet = self.HOM_D_R_PING_IMG
                 else:
-                    if self.direction.x == -1:
-                        if 0 <= self.time_in_pos < 10:
+                    if self.direction.y > 1 or self.direction.y < 0:
+                        if self.direction.x == -1:
                             self.sprite_sheet = self.HOM_S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.HOM_L_PING_IMG
-                    elif self.direction.x == 1:
-                        if 0 <= self.time_in_pos < 10:
+                        elif self.direction.x == 1:
                             self.sprite_sheet = self.HOM_S_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.HOM_R_PING_IMG
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
+                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
+                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
+                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                                self.sprite_sheet = self.HOM_S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.HOM_S_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
-                                or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
-                                or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
-                                or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
-                            self.sprite_sheet = self.HOM_L_PING_IMG
+                        if self.direction.x == -1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.HOM_S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.HOM_L_PING_IMG
+                        elif self.direction.x == 1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.HOM_S_R_PING_IMG
+                            else:
+                                self.sprite_sheet = self.HOM_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.HOM_R_PING_IMG
-        elif self.demon:
-            if self.glissade and self.direction.x != 0:
-                if self.direction.x == -1:
-                    self.sprite_sheet = self.DEM_D_L_PING_IMG
-                elif self.direction.x == 1:
-                    self.sprite_sheet = self.DEM_D_R_PING_IMG
-            else:
-                if self.direction.y > 1 or self.direction.y < 0:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
+                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
+                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
+                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                                self.sprite_sheet = self.HOM_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.HOM_R_PING_IMG
+            elif self.demon:
+                if self.glissade and self.direction.x != 0:
                     if self.direction.x == -1:
-                        self.sprite_sheet = self.DEM_S_L_PING_IMG
+                        self.sprite_sheet = self.DEM_D_L_PING_IMG
                     elif self.direction.x == 1:
-                        self.sprite_sheet = self.DEM_S_R_PING_IMG
-                    else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
-                                or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
-                                or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
-                                or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
-                            self.sprite_sheet = self.DEM_S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.DEM_S_R_PING_IMG
+                        self.sprite_sheet = self.DEM_D_R_PING_IMG
                 else:
-                    if self.direction.x == -1:
-                        if 0 <= self.time_in_pos < 10:
+                    if self.direction.y > 1 or self.direction.y < 0:
+                        if self.direction.x == -1:
                             self.sprite_sheet = self.DEM_S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.DEM_L_PING_IMG
-                    elif self.direction.x == 1:
-                        if 0 <= self.time_in_pos < 10:
+                        elif self.direction.x == 1:
                             self.sprite_sheet = self.DEM_S_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.DEM_R_PING_IMG
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
+                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
+                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
+                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                                self.sprite_sheet = self.DEM_S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.DEM_S_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
-                                or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
-                                or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
-                                or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
-                            self.sprite_sheet = self.DEM_L_PING_IMG
+                        if self.direction.x == -1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.DEM_S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.DEM_L_PING_IMG
+                        elif self.direction.x == 1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.DEM_S_R_PING_IMG
+                            else:
+                                self.sprite_sheet = self.DEM_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.DEM_R_PING_IMG
-        else:
-            if self.glissade and self.direction.x != 0:
-                if self.direction.x == -1:
-                    self.sprite_sheet = self.D_L_PING_IMG
-                elif self.direction.x == 1:
-                    self.sprite_sheet = self.D_R_PING_IMG
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
+                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
+                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
+                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                                self.sprite_sheet = self.DEM_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.DEM_R_PING_IMG
             else:
-                if self.direction.y > 1 or self.direction.y < 0:
+                if self.glissade and self.direction.x != 0:
                     if self.direction.x == -1:
-                        self.sprite_sheet = self.S_L_PING_IMG
+                        self.sprite_sheet = self.D_L_PING_IMG
                     elif self.direction.x == 1:
-                        self.sprite_sheet = self.S_R_PING_IMG
-                    else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
-                                or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
-                                or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
-                                or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
-                            self.sprite_sheet = self.S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.S_R_PING_IMG
+                        self.sprite_sheet = self.D_R_PING_IMG
                 else:
-                    if self.direction.x == -1:
-                        if 0 <= self.time_in_pos < 10:
+                    if self.direction.y > 1 or self.direction.y < 0:
+                        if self.direction.x == -1:
                             self.sprite_sheet = self.S_L_PING_IMG
-                        else:
-                            self.sprite_sheet = self.L_PING_IMG
-                    elif self.direction.x == 1:
-                        if 0 <= self.time_in_pos < 10:
+                        elif self.direction.x == 1:
                             self.sprite_sheet = self.S_R_PING_IMG
                         else:
-                            self.sprite_sheet = self.R_PING_IMG
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
+                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
+                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
+                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                                self.sprite_sheet = self.S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.S_R_PING_IMG
                     else:
-                        if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
-                                or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
-                                or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
-                                or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
-                            self.sprite_sheet = self.L_PING_IMG
+                        if self.direction.x == -1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.S_L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.L_PING_IMG
+                        elif self.direction.x == 1:
+                            if 0 <= self.time_in_pos < 10:
+                                self.sprite_sheet = self.S_R_PING_IMG
+                            else:
+                                self.sprite_sheet = self.R_PING_IMG
                         else:
-                            self.sprite_sheet = self.R_PING_IMG
-        self.last_pos = self.sprite_sheet
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG \
+                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG \
+                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG \
+                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                                self.sprite_sheet = self.L_PING_IMG
+                            else:
+                                self.sprite_sheet = self.R_PING_IMG
+            self.last_pos = self.sprite_sheet
