@@ -11,7 +11,7 @@ from color_selec import Color_selec
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Pyguins Adventure')
+pygame.display.set_caption('Pyguin Adventure')
 clock = pygame.time.Clock()
 
 lvl = 1
@@ -384,6 +384,7 @@ while True:
             color = Color_selec(nb-1)
         val = color.run()
         if val == ("Noir", "Noir", "Noir", "Noir"):
+            choix_couleur = False
             etape = 2
         elif val != None:
             c1 = val[0]

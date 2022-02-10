@@ -75,10 +75,24 @@ LEVEL_MAP = [
 'B                              34          B            35454        HBCCCCCCCCCCCCCCCCCCCCB',
 'B                                                                35454BC5445354545445354543B',
 'B                       534                                           BCCCCCCCCCCCCCCCCCCCCB',
-'B5435              34       35454          B        544535454544535454B5445354545445354543CB',
+'B5435              34       35454          5        544535454544535454B5445354545445354543CB',
 'B    P                                     B        CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCB',
 'B4344445544534344              554453434444554453434444554453434444554453434444554453434444B',
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
+[
+'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+'B                                                             B',
+'B                                                5            B',
+'B                                                B            B',
+'B                                                B            B',
+'B                                                B            B',
+'B                                                B            B',
+'BH                  C                           B      134534B',
+'B2                  534344                       B       D I  B',
+'B       534344                                   B            B',
+'B    P                                           B      134534B',
+'B4344445544534344534344534354453434444554453434444554453BBBBBBB',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
 ],
 [[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
