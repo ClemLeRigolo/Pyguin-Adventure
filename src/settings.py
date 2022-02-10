@@ -126,7 +126,7 @@ LEVEL_MAP = [
 'B                               B',
 'B            2                 2B',
 'B PQ        2B                2BB',
-'B434441     BB354435443544534BBBB',
+'B434441     BB3544354435445343BBB',
 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'],
 ],[[
 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
