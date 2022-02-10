@@ -552,10 +552,7 @@ class Player(pygame.sprite.Sprite):
                         elif self.direction.x == 1:
                             self.sprite_sheet = self.HOM_S_R_PING_IMG
                         else:
-                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG /
-                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG /
-                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG /
-                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
                                 self.sprite_sheet = self.HOM_S_L_PING_IMG
                             else:
                                 self.sprite_sheet = self.HOM_S_R_PING_IMG
@@ -571,10 +568,7 @@ class Player(pygame.sprite.Sprite):
                             else:
                                 self.sprite_sheet = self.HOM_R_PING_IMG
                         else:
-                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG /
-                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG /
-                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG /
-                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
                                 self.sprite_sheet = self.HOM_L_PING_IMG
                             else:
                                 self.sprite_sheet = self.HOM_R_PING_IMG
@@ -591,10 +585,7 @@ class Player(pygame.sprite.Sprite):
                         elif self.direction.x == 1:
                             self.sprite_sheet = self.DEM_S_R_PING_IMG
                         else:
-                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG /
-                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG /
-                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG /
-                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
                                 self.sprite_sheet = self.DEM_S_L_PING_IMG
                             else:
                                 self.sprite_sheet = self.DEM_S_R_PING_IMG
@@ -610,10 +601,7 @@ class Player(pygame.sprite.Sprite):
                             else:
                                 self.sprite_sheet = self.DEM_R_PING_IMG
                         else:
-                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG /
-                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG /
-                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG /
-                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
                                 self.sprite_sheet = self.DEM_L_PING_IMG
                             else:
                                 self.sprite_sheet = self.DEM_R_PING_IMG
@@ -630,10 +618,7 @@ class Player(pygame.sprite.Sprite):
                         elif self.direction.x == 1:
                             self.sprite_sheet = self.S_R_PING_IMG
                         else:
-                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG /
-                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG /
-                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG /
-                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
                                 self.sprite_sheet = self.S_L_PING_IMG
                             else:
                                 self.sprite_sheet = self.S_R_PING_IMG
@@ -649,10 +634,7 @@ class Player(pygame.sprite.Sprite):
                             else:
                                 self.sprite_sheet = self.R_PING_IMG
                         else:
-                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG /
-                                    or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG /
-                                    or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG /
-                                    or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
+                            if self.sprite_sheet == self.S_L_PING_IMG or self.sprite_sheet == self.D_L_PING_IMG or self.sprite_sheet == self.L_PING_IMG or self.sprite_sheet == self.DEM_S_L_PING_IMG or self.sprite_sheet == self.DEM_D_L_PING_IMG or self.sprite_sheet == self.DEM_L_PING_IMG or self.sprite_sheet == self.SUP_S_L_PING_IMG or self.sprite_sheet == self.SUP_D_L_PING_IMG or self.sprite_sheet == self.SUP_L_PING_IMG or self.sprite_sheet == self.HOM_S_L_PING_IMG or self.sprite_sheet == self.HOM_D_L_PING_IMG or self.sprite_sheet == self.HOM_L_PING_IMG:
                                 self.sprite_sheet = self.L_PING_IMG
                             else:
                                 self.sprite_sheet = self.R_PING_IMG
