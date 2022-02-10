@@ -30,6 +30,5 @@ class Bloc(pygame.sprite.Sprite):
                         if bord.direction.x == 0:
                             return False
                         if sprite2.rect != bord.rect:
-                            print("ça doit passer la frero")
                             return False
         return True

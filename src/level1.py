@@ -23,10 +23,8 @@ from timer import Timer
 class Level1:
     def __init__(self, lvl, nb, c1):
 
-        # level setup
         self.display_surface = pygame.display.get_surface()
 
-        # sprite group setup
         self.visible_sprites = CameraGroup()
         self.active_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
@@ -116,7 +114,6 @@ class Level1:
         return fish
 
     def run(self):
-        # run the entire game (level)
         keys = pygame.key.get_pressed()
         mx, my = pygame.mouse.get_pos()
         if keys[pygame.K_ESCAPE] and not self.game_paused:
@@ -243,31 +240,16 @@ class CameraGroup(pygame.sprite.Group):
         self.display_surface = pygame.display.get_surface()
         self.offset = pygame.math.Vector2(100, 300)
 
-        # center camera setup
-        # self.half_w = self.display_surface.get_size()[0] // 2
-        # self.half_h = self.display_surface.get_size()[1] // 2
-
-        # camera
         cam_left = CAMERA_BORDERS['left']
         cam_top = CAMERA_BORDERS['top']
         cam_width = self.display_surface.get_size()[0] - (cam_left + CAMERA_BORDERS['right'])
         cam_height = self.display_surface.get_size()[1] - (cam_top + CAMERA_BORDERS['bottom'])
 
-        self.camera_rect = pygame.Rect(cam_left, cam_top - 64, cam_width, cam_height)
+        self.camera_rect = pygame.Rect(cam_left, cam_top, cam_width, cam_height)
 
     def custom_draw(self, player1):
-
-        # get the player offset
-        # self.offset.x = player.rect.centerx - self.half_w
-        # self.offset.y = player.rect.centery - self.half_h
-
-        # getting the camera position
-
-
-
         self.camera_rect.left = (player1.rect.left) - 512 + CAMERA_BORDERS['left']
 
-        # camera offset
         self.offset = pygame.math.Vector2(
             self.camera_rect.left - CAMERA_BORDERS['left'],
             self.camera_rect.top - CAMERA_BORDERS['top'])

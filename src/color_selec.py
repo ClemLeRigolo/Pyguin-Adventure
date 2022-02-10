@@ -20,7 +20,7 @@ class Color_selec:
         self.c2 = "Noir"
         self.c3 = "Noir"
         self.c4 = "Noir"
-        self.click = True
+        self.click = False
 
     def setup_color(self):
         if self.nb == 1:
@@ -74,7 +74,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Rouge"
                         self.p1_pos = (rouge.x, rouge.y)
-                elif (not self.p2 and self.c1 != "Rouge" and self.c3 != "Rouge" and self.c4 != "Rouge") or self.c2 == "Rouge":
+                elif (not self.p2 and self.c1 != "Rouge" and self.c3 != "Rouge" and self.c4 != "Rouge" and self.nb > 1) or self.c2 == "Rouge":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -82,7 +82,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Rouge"
                         self.p2_pos = (rouge.x, rouge.y)
-                elif (not self.p3 and self.c1 != "Rouge" and self.c2 != "Rouge" and self.c4 != "Rouge") or self.c3 == "Rouge":
+                elif (not self.p3 and self.c1 != "Rouge" and self.c2 != "Rouge" and self.c4 != "Rouge" and self.nb > 2) or self.c3 == "Rouge":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -90,7 +90,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Rouge"
                         self.p3_pos = (rouge.x, rouge.y)
-                elif (not self.p4 and self.c1 != "Rouge" and self.c2 != "Rouge" and self.c3 != "Rouge") or self.c4 == "Rouge":
+                elif (not self.p4 and self.c1 != "Rouge" and self.c2 != "Rouge" and self.c3 != "Rouge" and self.nb > 3) or self.c4 == "Rouge":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -106,13 +106,11 @@ class Color_selec:
                     if self.click and self.p1:
                         self.p1 = False
                         self.c1 = "Noir"
-                        print("ici")
                     elif self.click:
                         self.p1 = True
                         self.c1 = "BleuClair"
-                        print("laba")
                         self.p1_pos = (cyan.x, cyan.y)
-                elif (not self.p2 and self.c1 != "BleuClair" and self.c3 != "BleuClair" and self.c4 != "BleuClair") or self.c2 == "BleuClair":
+                elif (not self.p2 and self.c1 != "BleuClair" and self.c3 != "BleuClair" and self.c4 != "BleuClair" and self.nb > 1) or self.c2 == "BleuClair":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -120,7 +118,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "BleuClair"
                         self.p2_pos = (cyan.x, cyan.y)
-                elif (not self.p3 and self.c1 != "BleuClair" and self.c2 != "BleuClair" and self.c4 != "BleuClair") or self.c3 == "BleuClair":
+                elif (not self.p3 and self.c1 != "BleuClair" and self.c2 != "BleuClair" and self.c4 != "BleuClair" and self.nb > 2) or self.c3 == "BleuClair":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -128,7 +126,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "BleuClair"
                         self.p3_pos = (cyan.x, cyan.y)
-                elif (not self.p4 and self.c1 != "BleuClair" and self.c2 != "BleuClair" and self.c3 != "BleuClair") or self.c4 == "BleuClair":
+                elif (not self.p4 and self.c1 != "BleuClair" and self.c2 != "BleuClair" and self.c3 != "BleuClair" and self.nb > 3) or self.c4 == "BleuClair":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -148,7 +146,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "VertFoncé"
                         self.p1_pos = (vert.x, vert.y)
-                elif (not self.p2 and self.c1 != "VertFoncé" and self.c3 != "VertFoncé" and self.c4 != "VertFoncé") or self.c2 == "VertFoncé":
+                elif (not self.p2 and self.c1 != "VertFoncé" and self.c3 != "VertFoncé" and self.c4 != "VertFoncé" and self.nb > 1) or self.c2 == "VertFoncé":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -156,7 +154,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "VertFoncé"
                         self.p2_pos = (vert.x, vert.y)
-                elif (not self.p3 and self.c1 != "VertFoncé" and self.c2 != "VertFoncé" and self.c4 != "VertFoncé") or self.c3 == "VertFoncé":
+                elif (not self.p3 and self.c1 != "VertFoncé" and self.c2 != "VertFoncé" and self.c4 != "VertFoncé" and self.nb > 2) or self.c3 == "VertFoncé":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -164,7 +162,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "VertFoncé"
                         self.p3_pos = (vert.x, vert.y)
-                elif (not self.p4 and self.c1 != "VertFoncé" and self.c2 != "VertFoncé" and self.c3 != "VertFoncé") or self.c4 == "VertFoncé":
+                elif (not self.p4 and self.c1 != "VertFoncé" and self.c2 != "VertFoncé" and self.c3 != "VertFoncé" and self.nb > 3) or self.c4 == "VertFoncé":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -184,7 +182,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Mauve"
                         self.p1_pos = (violet.x, violet.y)
-                elif (not self.p2 and self.c1 != "Mauve" and self.c3 != "Mauve" and self.c4 != "Mauve") or self.c2 == "Mauve":
+                elif (not self.p2 and self.c1 != "Mauve" and self.c3 != "Mauve" and self.c4 != "Mauve" and self.nb > 1) or self.c2 == "Mauve":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -192,7 +190,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Mauve"
                         self.p2_pos = (violet.x, violet.y)
-                elif (not self.p3 and self.c1 != "Mauve" and self.c2 != "Mauve" and self.c4 != "Mauve") or self.c3 == "Mauve":
+                elif (not self.p3 and self.c1 != "Mauve" and self.c2 != "Mauve" and self.c4 != "Mauve" and self.nb > 2) or self.c3 == "Mauve":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -200,7 +198,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Mauve"
                         self.p3_pos = (violet.x, violet.y)
-                elif (not self.p4 and self.c1 != "Mauve" and self.c2 != "Mauve" and self.c3 != "Mauve") or self.c4 == "Mauve":
+                elif (not self.p4 and self.c1 != "Mauve" and self.c2 != "Mauve" and self.c3 != "Mauve" and self.nb > 3) or self.c4 == "Mauve":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -220,7 +218,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Gris"
                         self.p1_pos = (gris.x, gris.y)
-                elif (not self.p2 and self.c1 != "Gris" and self.c3 != "Gris" and self.c4 != "Gris") or self.c2 == "Gris":
+                elif (not self.p2 and self.c1 != "Gris" and self.c3 != "Gris" and self.c4 != "Gris" and self.nb > 1) or self.c2 == "Gris":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -228,7 +226,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Gris"
                         self.p2_pos = (gris.x, gris.y)
-                elif (not self.p3 and self.c1 != "Gris" and self.c2 != "Gris" and self.c4 != "Gris") or self.c3 == "Gris":
+                elif (not self.p3 and self.c1 != "Gris" and self.c2 != "Gris" and self.c4 != "Gris" and self.nb > 2) or self.c3 == "Gris":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -236,7 +234,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Gris"
                         self.p3_pos = (gris.x, gris.y)
-                elif (not self.p4 and self.c1 != "Gris" and self.c2 != "Gris" and self.c3 != "Gris") or self.c4 == "Gris":
+                elif (not self.p4 and self.c1 != "Gris" and self.c2 != "Gris" and self.c3 != "Gris" and self.nb > 3) or self.c4 == "Gris":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -256,7 +254,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Orange"
                         self.p1_pos = (orange.x, orange.y)
-                elif (not self.p2 and self.c1 != "Orange" and self.c3 != "Orange" and self.c4 != "Orange") or self.c2 == "Orange":
+                elif (not self.p2 and self.c1 != "Orange" and self.c3 != "Orange" and self.c4 != "Orange" and self.nb > 1) or self.c2 == "Orange":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -264,7 +262,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Orange"
                         self.p2_pos = (orange.x, orange.y)
-                elif (not self.p3 and self.c1 != "Orange" and self.c2 != "Orange" and self.c4 != "Orange") or self.c3 == "Orange":
+                elif (not self.p3 and self.c1 != "Orange" and self.c2 != "Orange" and self.c4 != "Orange" and self.nb > 2) or self.c3 == "Orange":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -272,7 +270,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Orange"
                         self.p3_pos = (orange.x, orange.y)
-                elif (not self.p4 and self.c1 != "Orange" and self.c2 != "Orange" and self.c3 != "Orange") or self.c4 == "Orange":
+                elif (not self.p4 and self.c1 != "Orange" and self.c2 != "Orange" and self.c3 != "Orange" and self.nb > 3) or self.c4 == "Orange":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -292,7 +290,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Bleu"
                         self.p1_pos = (blue.x, blue.y)
-                elif (not self.p2 and self.c1 != "Bleu" and self.c3 != "Bleu" and self.c4 != "Bleu") or self.c2 == "Bleu":
+                elif (not self.p2 and self.c1 != "Bleu" and self.c3 != "Bleu" and self.c4 != "Bleu" and self.nb > 1) or self.c2 == "Bleu":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -300,7 +298,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Bleu"
                         self.p2_pos = (blue.x, blue.y)
-                elif (not self.p3 and self.c1 != "Bleu" and self.c2 != "Bleu" and self.c4 != "Bleu") or self.c3 == "Bleu":
+                elif (not self.p3 and self.c1 != "Bleu" and self.c2 != "Bleu" and self.c4 != "Bleu" and self.nb > 2) or self.c3 == "Bleu":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -308,7 +306,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Bleu"
                         self.p3_pos = (blue.x, blue.y)
-                elif (not self.p4 and self.c1 != "Bleu" and self.c2 != "Bleu" and self.c3 != "Bleu") or self.c4 == "Bleu":
+                elif (not self.p4 and self.c1 != "Bleu" and self.c2 != "Bleu" and self.c3 != "Bleu" and self.nb > 3) or self.c4 == "Bleu":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -328,7 +326,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Vert"
                         self.p1_pos = (vertclair.x, vertclair.y)
-                elif (not self.p2 and self.c1 != "Vert" and self.c3 != "Vert" and self.c4 != "Vert") or self.c2 == "Vert":
+                elif (not self.p2 and self.c1 != "Vert" and self.c3 != "Vert" and self.c4 != "Vert" and self.nb > 1) or self.c2 == "Vert":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -336,7 +334,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Vert"
                         self.p2_pos = (vertclair.x, vertclair.y)
-                elif (not self.p3 and self.c1 != "Vert" and self.c2 != "Vert" and self.c4 != "Vert") or self.c3 == "Vert":
+                elif (not self.p3 and self.c1 != "Vert" and self.c2 != "Vert" and self.c4 != "Vert" and self.nb > 2) or self.c3 == "Vert":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -344,7 +342,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Vert"
                         self.p3_pos = (vertclair.x, vertclair.y)
-                elif (not self.p4 and self.c1 != "Vert" and self.c2 != "Vert" and self.c3 != "Vert") or self.c4 == "Vert":
+                elif (not self.p4 and self.c1 != "Vert" and self.c2 != "Vert" and self.c3 != "Vert" and self.nb > 3) or self.c4 == "Vert":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -364,7 +362,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Rose"
                         self.p1_pos = (rose.x, rose.y)
-                elif (not self.p2 and self.c1 != "Rose" and self.c3 != "Rose" and self.c4 != "Rose") or self.c2 == "Rose":
+                elif (not self.p2 and self.c1 != "Rose" and self.c3 != "Rose" and self.c4 != "Rose" and self.nb > 1) or self.c2 == "Rose":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -372,7 +370,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Rose"
                         self.p2_pos = (rose.x, rose.y)
-                elif (not self.p3 and self.c1 != "Rose" and self.c2 != "Rose" and self.c4 != "Rose") or self.c3 == "Rose":
+                elif (not self.p3 and self.c1 != "Rose" and self.c2 != "Rose" and self.c4 != "Rose" and self.nb > 2) or self.c3 == "Rose":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -380,7 +378,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Rose"
                         self.p3_pos = (rose.x, rose.y)
-                elif (not self.p4 and self.c1 != "Rose" and self.c2 != "Rose" and self.c3 != "Rose") or self.c4 == "Rose":
+                elif (not self.p4 and self.c1 != "Rose" and self.c2 != "Rose" and self.c3 != "Rose" and self.nb > 3) or self.c4 == "Rose":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -400,7 +398,7 @@ class Color_selec:
                         self.p1 = True
                         self.c1 = "Jaune"
                         self.p1_pos = (jaune.x, jaune.y)
-                elif (not self.p2 and self.c1 != "Jaune" and self.c3 != "Jaune" and self.c4 != "Jaune") or self.c2 == "Jaune":
+                elif (not self.p2 and self.c1 != "Jaune" and self.c3 != "Jaune" and self.c4 != "Jaune" and self.nb > 1) or self.c2 == "Jaune":
                     if self.click and self.p2:
                         self.p2 = False
                         self.c2 = "Noir"
@@ -408,7 +406,7 @@ class Color_selec:
                         self.p2 = True
                         self.c2 = "Jaune"
                         self.p2_pos = (jaune.x, jaune.y)
-                elif (not self.p3 and self.c1 != "Jaune" and self.c2 != "Jaune" and self.c4 != "Jaune") or self.c3 == "Jaune":
+                elif (not self.p3 and self.c1 != "Jaune" and self.c2 != "Jaune" and self.c4 != "Jaune" and self.nb > 2) or self.c3 == "Jaune":
                     if self.click and self.p3:
                         self.p3 = False
                         self.c3 = "Noir"
@@ -416,7 +414,7 @@ class Color_selec:
                         self.p3 = True
                         self.c3 = "Jaune"
                         self.p3_pos = (jaune.x, jaune.y)
-                elif (not self.p4 and self.c1 != "Jaune" and self.c2 != "Jaune" and self.c3 != "Jaune") or self.c4 == "Jaune":
+                elif (not self.p4 and self.c1 != "Jaune" and self.c2 != "Jaune" and self.c3 != "Jaune" and self.nb > 3) or self.c4 == "Jaune":
                     if self.click and self.p4:
                         self.p4 = False
                         self.c4 = "Noir"
@@ -480,7 +478,6 @@ class Color_selec:
             if back_button.draw(self.display_surface):
                 if pygame.mouse.get_pressed()[0]:
                     return (self.c1, self.c2, self.c3, self.c4)
-
     def next_possible(self):
         if self.nb == 1:
             return self.p1
