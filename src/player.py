@@ -38,7 +38,6 @@ class Player(pygame.sprite.Sprite):
         self.HOM_D_R_PING_IMG = self.colors.table[23]
         self.FINISH = self.colors.table[24]
 
-        # player movement
         self.nb = nb
         self.direction = pygame.math.Vector2()
         self.speed = 8
@@ -219,7 +218,6 @@ class Player(pygame.sprite.Sprite):
         if self.homard:
             for sprite1 in self.bloc_break_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
-                    print("cassé")
                     self.visible_sprites.remove(sprite1)
                     self.collision_sprites.remove(sprite1)
                     self.bloc_break_sprites.remove(sprite1)
@@ -229,7 +227,6 @@ class Player(pygame.sprite.Sprite):
                 if self.direction.x < 0:
                     possible = sprite1.collision(True, self, self.collision_sprites, self.active_sprite)
                     if possible:
-                        print("oui")
                         sprite1.rect.right = self.rect.left
                         self.contre_bloc = False
                     else:
@@ -238,7 +235,6 @@ class Player(pygame.sprite.Sprite):
                 if self.direction.x > 0:
                     possible = sprite1.collision(True, self, self.collision_sprites, self.active_sprite)
                     if possible:
-                        print("oui")
                         sprite1.rect.left = self.rect.right
                         self.contre_bloc = False
                     else:
@@ -252,7 +248,6 @@ class Player(pygame.sprite.Sprite):
         if not self.homard:
             for sprite1 in self.mask_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
-                    print("mask")
                     sprite1.grab = True
                     if self.nb == 1:
                         sprite1.nb = 1
@@ -268,7 +263,6 @@ class Player(pygame.sprite.Sprite):
         if not self.super:
             for sprite1 in self.homard_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
-                    print("homard")
                     sprite1.grab = True
                     if self.nb == 1:
                         sprite1.nb = 1
@@ -283,7 +277,6 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.fish_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("fish")
                 sprite1.grab = True
                 self.visible_sprites.remove(sprite1)
                 self.collision_sprites.remove(sprite1)
@@ -291,7 +284,6 @@ class Player(pygame.sprite.Sprite):
         for sprite1 in self.door_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
                 if self.nb_grab == self.nb_fish:
-                    print("ui")
                     self.collision_sprites.remove(sprite1)
 
         for sprite1 in self.igloo_sprites.sprites():
@@ -323,7 +315,6 @@ class Player(pygame.sprite.Sprite):
         if self.homard:
             for sprite1 in self.bloc_break_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
-                    print("cassé")
                     self.visible_sprites.remove(sprite1)
                     self.collision_sprites.remove(sprite1)
                     self.bloc_break_sprites.remove(sprite1)
@@ -332,7 +323,6 @@ class Player(pygame.sprite.Sprite):
             for sprite1 in self.bloc_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
                     if self.direction.y > 0:
-                        print("tp")
                         self.rect.bottom = sprite1.rect.top
                         self.direction.y = 0
                         self.on_floor = True
@@ -344,7 +334,6 @@ class Player(pygame.sprite.Sprite):
         if not self.homard:
             for sprite1 in self.mask_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
-                    print("mask")
                     sprite1.grab = True
                     if self.nb == 1:
                         sprite1.nb = 1
@@ -360,7 +349,6 @@ class Player(pygame.sprite.Sprite):
         if not self.super:
             for sprite1 in self.homard_sprites.sprites():
                 if sprite1.rect.colliderect(self.rect):
-                    print("homard")
                     sprite1.grab = True
                     if self.nb == 1:
                         sprite1.nb = 1
@@ -375,13 +363,11 @@ class Player(pygame.sprite.Sprite):
 
         for sprite1 in self.limit_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("limit")
                 self.rect.left = sprite1.rect.left - 128
                 self.rect.top = self.last_pos_on_flor[1]
 
         for sprite1 in self.fish_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
-                print("fish")
                 sprite1.grab = True
                 self.visible_sprites.remove(sprite1)
                 self.collision_sprites.remove(sprite1)
@@ -389,7 +375,6 @@ class Player(pygame.sprite.Sprite):
         for sprite1 in self.door_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
                 if self.nb_grab == self.nb_fish:
-                    print("ui")
                     self.collision_sprites.remove(sprite1)
 
         for sprite1 in self.collision_sprites.sprites():
@@ -447,7 +432,6 @@ class Player(pygame.sprite.Sprite):
                 self.last_pos_on_flor[0] = self.rect.left
                 self.last_pos_on_flor[1] = self.rect.top
         if self.horizontal_collisions() == 5:
-            print("rreturn LE 2")
             return 5
         self.apply_gravity()
         self.vertical_collisions()
@@ -497,7 +481,6 @@ class Player(pygame.sprite.Sprite):
 
     def update_pos(self):
         if self.move == False:
-            print("fini")
             self.sprite_sheet = self.FINISH
         else:
             if self.last_pos == self.sprite_sheet:
