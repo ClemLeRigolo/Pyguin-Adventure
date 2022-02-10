@@ -469,22 +469,18 @@ class Player(pygame.sprite.Sprite):
             self.speed = self.speed * 1.3
             self.speedG = self.speedG * 1.3
             self.gravity = self.gravity * 0.6
-            print("debut")
         else:
             self.super = False
             self.speed = self.speed / 1.3
             self.speedG = self.speedG / 1.3
             self.gravity = self.gravity / 0.6
-            print("fin")
 
     def set_homard(self, val):
         self.demon = False
         if val:
             self.homard = True
-            print("debut")
         else:
             self.homard = False
-            print("fin")
 
     def update_pos(self):
         if self.last_pos == self.sprite_sheet:
