@@ -1,4 +1,5 @@
 import pygame, sys, button
+from math import log10, floor
 
 sys.path.append('../')
 from settings import *
@@ -16,6 +17,7 @@ clock = pygame.time.Clock()
 
 lvl = 1
 nb = 1
+page = 1
 
 etape = 0
 
@@ -27,7 +29,45 @@ choix_couleur = False
 
 font = pygame.font.SysFont(None, 20)
 
-tempsLvl=[[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+tempsLvl=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+
+openned=False
+openned2=False
+
+CT = pygame.font.SysFont(None, 25)
+
+try:
+
+    """
+    f = open("test.txt", 'w', encoding='utf-8')
+    x = f.write(str(tempsLvl))
+    f.close()
+    """
+
+    f = open("test.txt",'r',encoding = 'utf-8')
+    print("open success")
+    x=f.readline()
+    print("read success")
+    y=x.split(",")
+    for i in range(40):
+        y[i] = y[i].replace('[', '')
+        y[i] = y[i].replace(' ', '')
+        y[i] = y[i].replace(']', '')
+        y[i] = float(y[i])
+    tempsLvl=y
+    print(tempsLvl)
+    f.close()
+    openned=True
+
+
+except Exception as e:
+    print("erreur : ")
+    print(e)
+
+pygame.mixer.init()
+#pygame.mixer.music.load("sound/accueil_ost.mp3")
+#pygame.mixer.music.play(loops=-1)
+
 
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
@@ -178,6 +218,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 1
+        if tempsLvl[(nb-1)*10+1-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+1-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+1-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (60, 370))
 
         if 391 > mx > 241 and 400 > my > 250:
             back_img = pygame.image.load('./images/boutons/2Hover.png').convert_alpha()
@@ -189,6 +234,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 2
+        if tempsLvl[(nb-1)*10+2-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+2-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+2-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (260, 370))
 
         if 586 > mx > 436 and 400 > my > 250:
             back_img = pygame.image.load('./images/boutons/3Hover.png').convert_alpha()
@@ -200,6 +250,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 3
+        if tempsLvl[(nb-1)*10+3-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+3-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+3-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (460, 370))
 
         if 781 > mx > 631 and 400 > my > 250:
             back_img = pygame.image.load('./images/boutons/4Hover.png').convert_alpha()
@@ -211,6 +266,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 4
+        if tempsLvl[(nb-1)*10+4-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+4-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+4-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (660, 370))
 
         if 976 > mx > 826 and 400 > my > 250:
             back_img = pygame.image.load('./images/boutons/5Hover.png').convert_alpha()
@@ -222,6 +282,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 5
+        if tempsLvl[(nb-1)*10+5-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+5-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+5-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (860, 370))
 
         if 196 > mx > 46 and 595 > my > 445:
             back_img = pygame.image.load('./images/boutons/6Hover.png').convert_alpha()
@@ -233,6 +298,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 6
+        if tempsLvl[(nb-1)*10+6-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+6-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+6-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (60, 565))
 
         if 391 > mx > 241 and 595 > my > 445:
             back_img = pygame.image.load('./images/boutons/7Hover.png').convert_alpha()
@@ -244,6 +314,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 7
+        if tempsLvl[(nb-1)*10+7-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+7-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+7-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (260, 565))
 
         if 586 > mx > 436 and 595 > my > 445:
             back_img = pygame.image.load('./images/boutons/8Hover.png').convert_alpha()
@@ -255,6 +330,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 8
+        if tempsLvl[(nb-1)*10+8-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+8-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+8-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (460, 565))
 
         if 781 > mx > 631 and 595 > my > 445:
             back_img = pygame.image.load('./images/boutons/9Hover.png').convert_alpha()
@@ -266,6 +346,11 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 9
+        if tempsLvl[(nb-1)*10+9-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+9-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+9-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (660, 565))
 
         if 976 > mx > 826 and 595 > my > 445:
             back_img = pygame.image.load('./images/boutons/10Hover.png').convert_alpha()
@@ -277,65 +362,152 @@ while True:
                 Pred = False
                 etape = 3
                 lvl = 10
+        if tempsLvl[(nb-1)*10+10-1]!=0:
+            img = CT.render("HIGH : "+str(round(tempsLvl[(nb-1)*10+10-1], 5 - int(floor(log10(abs(tempsLvl[(nb-1)*10+10-1])))) - 1)), True, (0, 0, 0))
+        else:
+            img = CT.render("NO HIGH", True, (0, 0, 0))
+        display_surface.blit(img, (860, 565))
 
     if etape == 11:
-        screen.fill(BG_COLOR)
         if first:
             if nb == 1:
+                pygame.mixer.music.stop()
                 level = Level1(lvl - 1, nb - 1, c1)
             elif nb == 2:
+                pygame.mixer.music.stop()
                 level = Level2(lvl - 1, nb - 1, c1, c2)
             elif nb == 3:
+                pygame.mixer.music.stop()
                 level = Level3(lvl - 1, nb - 1, c1, c2, c3)
             elif nb == 4:
+                pygame.mixer.music.stop()
                 level = Level4(lvl - 1, nb - 1, c1, c2, c3, c4)
             first = False
         temps = level.run()
         if temps==None:
             temps=-1
+        #print("le Temps : "+str(temps))
         if temps == 0:
             first = True
             etape = 2
+            #pygame.mixer.music.load("sound/accueil_ost.mp3")------------------------------------------------------
+            #pygame.mixer.music.play(loops=-1)
         elif temps > 0:
+            print("le Temps : " + str(temps))
             first = True
-            if tempsLvl[nb][lvl]==0 or tempsLvl[nb][lvl]>temps:
-                tempsLvl[nb][lvl]=temps
-            print(tempsLvl[nb][lvl])
+            if tempsLvl[(nb-1)*10+lvl-1]==0 or tempsLvl[(nb-1)*10+lvl-1]>temps:
+                print("le Temps QUI DOIT PASSER PAR LA : " + str(temps))
+                try:
+                    f = open("test.txt", 'r', encoding='utf-8')
+                    x = f.readline()
+                    y = x.split(",")
+                    for i in range(40):
+                        y[i] = y[i].replace('[', '')
+                        y[i] = y[i].replace(' ', '')
+                        y[i] = y[i].replace(']', '')
+                        y[i] = float(y[i])
+                    tempsLvl = y
+                    print(y)
+                    print(tempsLvl)
+                    f.close()
+                    openned2 = True
+                    print("Coucou je pas suis pas la")
+                    if tempsLvl[(nb - 1) * 10 + lvl - 1] == 0:
+                        print("Coucou je suis la")
 
+                    if (tempsLvl[(nb-1)*10+lvl-1] == 0 or tempsLvl[(nb-1)*10+lvl-1] > temps) and openned2:
+                        openned2 = False
+                        print("Le tableau ressemble a ca : "+str(tempsLvl))
+                        print("Je rentre la valeur "+str(temps)+" dans la case "+str((nb-1)*10+lvl-1))
+                        tempsLvl[(nb-1)*10+lvl-1] = temps
+                        f = open("test.txt", 'w', encoding='utf-8')
+                        x = f.write(str(tempsLvl))
+                        f.close()
+
+
+                except:
+                    print("error")
+                    openned2 = False
+                    tempsLvl[(nb-1)*10+lvl-1] = temps
+
+            print(tempsLvl[(nb-1)*10+lvl-1])
+            #pygame.mixer.music.load("sound/accueil_ost.mp3")-----------------------------------------------------------
+            #pygame.mixer.music.play(loops=-1)
             etape = 2
 
-
     if etape == 9:
-        screen.fill((0, 0, 0))
-        font = pygame.font.SysFont(None, 50)
-        draw_text('Regles du Jeu', font, (255, 255, 255), screen, 400, 20)
-        font = pygame.font.SysFont(None, 20)
-        draw_text('Le but est de ....', font, (255, 255, 255), screen, 300, 100)
-        mx, my = pygame.mouse.get_pos()
-        Pred = False
+        if page == 1:
+            bg = pygame.image.load('./images/ihm/HowToPlay1.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
+        if page == 2:
+            bg = pygame.image.load('./images/ihm/HowToPlay2.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
+        if page == 3:
+            bg = pygame.image.load('./images/ihm/HowToPlay3.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
+        if page == 4:
+            bg = pygame.image.load('./images/ihm/HowToPlay4.png').convert_alpha()
+            bg = button.Button(0, 0, bg, 1)
+            bg.draw(screen)
+            mx, my = pygame.mouse.get_pos()
 
-        buttonR_1 = pygame.Rect(50, 50, 100, 50)
-        if buttonR_1.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
+        if 91 > mx > 40 and 451 > my > 400:
+            back_img = pygame.image.load('./images/boutons/FlecheGaucheHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/FlecheGauche.png').convert_alpha()
+        back_button = button.Button(40, 400, back_img, 0.8)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
+                if page == 1:
+                    page = 4
+                else:
+                    page += -1
+
+        if 361 > mx > 310 and 451 > my > 400:
+            back_img = pygame.image.load('./images/boutons/FlecheDroiteHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/FlecheDroite.png').convert_alpha()
+        back_button = button.Button(310, 400, back_img, 0.8)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
+                if page == 4:
+                    page = 1
+                else:
+                    page += 1
+
+        if 300 > mx > 50 and 760 > my > 700:
+            back_img = pygame.image.load('./images/boutons/ReturnHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/Return.png').convert_alpha()
+        back_button = button.Button(50, 700, back_img, 1)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 0
-        pygame.draw.rect(screen, (255, 0, 0), buttonR_1)
-        draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
     if etape == 10:
-        screen.fill((0, 0, 0))
-        font = pygame.font.SysFont(None, 50)
-        draw_text('Credits', font, (255, 255, 255), screen, 400, 20)
-        font = pygame.font.SysFont(None, 20)
-        draw_text('Réalisé grace à ...', font, (255, 255, 255), screen, 300, 100)
+        bg = pygame.image.load('./images/ihm/CreditsPage.png').convert_alpha()
+        bg = button.Button(0, 0, bg, 1)
+        bg.draw(screen)
         mx, my = pygame.mouse.get_pos()
-        Pred = False
 
-        buttonS_1 = pygame.Rect(50, 50, 100, 50)
-        if buttonS_1.collidepoint((mx, my)):
-            if pygame.mouse.get_pressed()[0]:
+        if 300 > mx > 50 and 728 > my > 668:
+            back_img = pygame.image.load('./images/boutons/ReturnHover.png').convert_alpha()
+        else:
+            back_img = pygame.image.load('./images/boutons/Return.png').convert_alpha()
+        back_button = button.Button(50, 668, back_img, 1)
+        if back_button.draw(screen):
+            if pygame.mouse.get_pressed()[0] and Pred:
+                Pred = False
                 etape = 0
-        pygame.draw.rect(screen, (255, 0, 0), buttonS_1)
-        draw_text('Retour', font, (255, 255, 255), screen, 60, 60)
 
     if etape == 3:
         if not choix_couleur:
