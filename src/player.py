@@ -376,7 +376,7 @@ class Player(pygame.sprite.Sprite):
         for sprite1 in self.limit_sprites.sprites():
             if sprite1.rect.colliderect(self.rect):
                 print("limit")
-                self.rect.left = self.last_pos_on_flor[0] - 128
+                self.rect.left = sprite1.rect.left - 128
                 self.rect.top = self.last_pos_on_flor[1]
 
         for sprite1 in self.fish_sprites.sprites():
