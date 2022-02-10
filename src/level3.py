@@ -304,7 +304,7 @@ class CameraGroup(pygame.sprite.Group):
         cam_width = self.display_surface.get_size()[0] - (cam_left + CAMERA_BORDERS['right'])
         cam_height = self.display_surface.get_size()[1] - (cam_top + CAMERA_BORDERS['bottom'])
 
-        self.camera_rect = pygame.Rect(cam_left, cam_top - 64, cam_width, cam_height)
+        self.camera_rect = pygame.Rect(cam_left, cam_top, cam_width, cam_height)
 
     def custom_draw(self, player1, player2, player3):
 
