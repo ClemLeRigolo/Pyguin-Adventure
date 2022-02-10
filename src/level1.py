@@ -51,8 +51,8 @@ class Level1:
         self.temps = pygame.font.SysFont(None, 100)
         self.night = False
         pygame.mixer.init()
-        pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
-        pygame.mixer.music.play(loops=-1)
+        #pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
+        #pygame.mixer.music.play(loops=-1)
         self.bgj = pygame.image.load("./images/map/background1.png")
         self.bgn = pygame.image.load("./images/map/background2.png")
         self.change = False
@@ -198,9 +198,12 @@ class Level1:
                 if self.time.real() - self.time_start - self.time_last >= 20:
                     self.night = True
                     self.time_last = self.time.real() - self.time_start
-            self.player1.nuit(self.night)
-            self.active_sprites.update()
-            self.visible_sprites.custom_draw(self.player1)
+                    self.player1.nuit(self.night)
+                    # self.active_sprites.update()
+                    self.visible_sprites.custom_draw(self.player1)
+                    if self.player1.update() == 5:
+                        return 5
+
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)
             bg_button.draw(self.display_surface)

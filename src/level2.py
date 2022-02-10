@@ -20,6 +20,7 @@ from homard import Homard
 from bloc_break import Bloc_break
 
 
+
 class Level2:
     def __init__(self, lvl, nb, c1, c2):
 
@@ -51,13 +52,15 @@ class Level2:
         self.temps = pygame.font.SysFont(None, 100)
         self.night = False
         pygame.mixer.init()
-        pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
-        pygame.mixer.music.play(loops=-1)
+        #pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
+        #pygame.mixer.music.play(loops=-1)
         self.bgj = pygame.image.load("./images/map/background1.png")
         self.bgn = pygame.image.load("./images/map/background2.png")
         self.change = False
         self.mask_is = False
         self.homard_is = False
+        self.P1 = False
+        self.P2 = False
         self.game_paused = False
 
         self.c1 = c1
@@ -218,9 +221,17 @@ class Level2:
                     self.time_last = self.time.real() - self.time_start
             self.player1.nuit(self.night)
             self.player2.nuit(self.night)
-            self.active_sprites.update()
+            # self.active_sprites.update()
             self.visible_sprites.custom_draw(self.player1, self.player2)
             self.visible_sprites.custom_draw(self.player2, self.player1)
+            if self.player1.update() == 5:
+                self.P1 = True
+            if self.player2.update() == 5:
+                self.P2 = True
+            if self.P1 and self.P2:
+                self.P1 = False
+                self.P2 = False
+                return 5
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)
             bg_button.draw(self.display_surface)
