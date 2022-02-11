@@ -49,8 +49,8 @@ class Level3:
         self.temps = pygame.font.SysFont(None, 100)
         self.night = False
         pygame.mixer.init()
-        #pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
-        #pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.load("sound/Pyguin_adventure_ost.mp3")
+        pygame.mixer.music.play(loops=-1)
         self.bgj = pygame.image.load("./images/map/background1.png")
         self.bgn = pygame.image.load("./images/map/background2.png")
         self.change = False

@@ -9,7 +9,6 @@ from level3 import Level3
 from level4 import Level4
 from color_selec import Color_selec
 
-# Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Pyguin Adventure')
@@ -64,8 +63,8 @@ except Exception as e:
     print(e)
 
 pygame.mixer.init()
-#pygame.mixer.music.load("sound/accueil_ost.mp3")
-#pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.load("sound/accueil_ost.mp3")
+pygame.mixer.music.play(loops=-1)
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -418,8 +417,8 @@ while True:
                     openned2 = False
                     tempsLvl[(nb-1)*10+lvl-1] = temps
 
-            #pygame.mixer.music.load("sound/accueil_ost.mp3")-----------------------------------------------------------
-            #pygame.mixer.music.play(loops=-1)
+            pygame.mixer.music.load("sound/accueil_ost.mp3")
+            pygame.mixer.music.play(loops=-1)
             etape = 2
 
     if etape == 9:
