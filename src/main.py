@@ -387,7 +387,7 @@ while True:
         if temps == 0:
             first = True
             etape = 2
-            pygame.mixer.music.load("sound/accueil_ost.mp3")------------------------------------------------------
+            pygame.mixer.music.load("sound/accueil_ost.mp3")
             pygame.mixer.music.play(loops=-1)
         elif temps > 0:
             first = True
