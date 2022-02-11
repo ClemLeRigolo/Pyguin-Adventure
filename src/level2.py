@@ -236,7 +236,6 @@ class Level2:
                 pygame.mixer.music.stop()
                 self.P1 = False
                 self.P2 = False
-                print(self.time.real()- self.time_start)
                 return self.time.real() - self.time_start
             bg_time = pygame.image.load('./images/boutons/backgroundTime.png').convert_alpha()
             bg_button = button.Button(0, 0, bg_time, 1)

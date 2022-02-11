@@ -47,17 +47,14 @@ try:
     """
 
     f = open(fichierLoc,'r',encoding = 'utf-8')
-    print("open success")
-    x=f.readline()
-    print("read success")
-    y=x.split(",")
+    x = f.readline()
+    y = x.split(",")
     for i in range(40):
         y[i] = y[i].replace('[', '')
         y[i] = y[i].replace(' ', '')
         y[i] = y[i].replace(']', '')
         y[i] = float(y[i])
-    tempsLvl=y
-    print(tempsLvl)
+    tempsLvl = y
     f.close()
     openned=True
 
@@ -388,17 +385,14 @@ while True:
         temps = level.run()
         if temps==None:
             temps=-1
-        #print("le Temps : "+str(temps))
         if temps == 0:
             first = True
             etape = 2
             #pygame.mixer.music.load("sound/accueil_ost.mp3")------------------------------------------------------
             #pygame.mixer.music.play(loops=-1)
         elif temps > 0:
-            print("le Temps : " + str(temps))
             first = True
             if tempsLvl[(nb-1)*10+lvl-1]==0 or tempsLvl[(nb-1)*10+lvl-1]>temps:
-                print("le Temps QUI DOIT PASSER PAR LA : " + str(temps))
                 try:
                     f = open(fichierLoc, 'r', encoding='utf-8')
                     x = f.readline()
@@ -409,18 +403,10 @@ while True:
                         y[i] = y[i].replace(']', '')
                         y[i] = float(y[i])
                     tempsLvl = y
-                    print(y)
-                    print(tempsLvl)
                     f.close()
                     openned2 = True
-                    print("Coucou je pas suis pas la")
-                    if tempsLvl[(nb - 1) * 10 + lvl - 1] == 0:
-                        print("Coucou je suis la")
-
                     if (tempsLvl[(nb-1)*10+lvl-1] == 0 or tempsLvl[(nb-1)*10+lvl-1] > temps) and openned2:
                         openned2 = False
-                        print("Le tableau ressemble a ca : "+str(tempsLvl))
-                        print("Je rentre la valeur "+str(temps)+" dans la case "+str((nb-1)*10+lvl-1))
                         tempsLvl[(nb-1)*10+lvl-1] = temps
                         f = open(fichierLoc, 'w', encoding='utf-8')
                         x = f.write(str(tempsLvl))
@@ -432,7 +418,6 @@ while True:
                     openned2 = False
                     tempsLvl[(nb-1)*10+lvl-1] = temps
 
-            print(tempsLvl[(nb-1)*10+lvl-1])
             #pygame.mixer.music.load("sound/accueil_ost.mp3")-----------------------------------------------------------
             #pygame.mixer.music.play(loops=-1)
             etape = 2
