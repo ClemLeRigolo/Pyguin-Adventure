@@ -1,4 +1,4 @@
-import pygame, sys, button
+import pygame, sys, button, ctypes
 from math import log10, floor
 
 sys.path.append('../')
@@ -10,6 +10,8 @@ from level4 import Level4
 from color_selec import Color_selec
 
 pygame.init()
+myappid = './images/icon/icon.png'
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Pyguin Adventure')
 clock = pygame.time.Clock()
