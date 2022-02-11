@@ -30,7 +30,7 @@ font = pygame.font.SysFont(None, 20)
 
 tempsLvl=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
 
-fichierLoc="/users/info/etu-s3/barramat/gamejam/gamejam/src/test.txt"
+fichierLoc="/users/info/etu-s4/barramat/gamejam/gamejam/src/test.txt"
 
 openned=False
 openned2=False
